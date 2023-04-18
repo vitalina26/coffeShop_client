@@ -14,7 +14,7 @@ const storedJwt: string | null = localStorage.getItem('jwt');
 // eslint-disable-next-line no-extra-boolean-cast
 const jwt: Jwt = !!storedJwt ? JSON.parse(storedJwt) : null;
 
-// TODO: move higher
+
 interface AsyncState {
   isLoading: boolean;
   isSuccess: boolean;
@@ -25,6 +25,7 @@ interface AuthState extends AsyncState {
   user?: User | null;
   jwt?: Jwt | null;
   isAuthenticated?: boolean;
+  isVerifed?: boolean;
 }
 
 const initialState: AuthState = {
@@ -34,6 +35,7 @@ const initialState: AuthState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
+  isVerifed: false,
 };
 
 export const register = createAsyncThunk(
@@ -88,9 +90,7 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // REGISTER
-      .addCase(register.pending, (state) => {
-        state.isLoading = true;
-      })
+
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
@@ -132,12 +132,14 @@ export const authSlice = createSlice({
       .addCase(verifyJwt.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.isAuthenticated = action.payload;
+        state.isAuthenticated = true;
+        state.isVerifed = true;  
       })
       .addCase(verifyJwt.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
         state.isAuthenticated = false;
+        state.isVerifed = false;  
       });
   },
 });

@@ -13,7 +13,7 @@ const Login = () => {
   }
   const dispatch = useAppDispatch();
 
-  const { isSuccess, isAuthenticated } = useAppSelector(
+  const { isAuthenticated, isSuccess } = useAppSelector(
     (state) => state.auth
   );
   const navigate = useNavigate();
@@ -28,6 +28,8 @@ const Login = () => {
 
   useEffect(() => {
     if (!isAuthenticated) return;
+    dispatch(reset());
+    clearForm();
     navigate('/');
   }, [isAuthenticated]);
 
