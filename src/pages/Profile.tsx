@@ -1,10 +1,108 @@
-import React from "react"
-const Profile = () => {
+import React, { SyntheticEvent, useEffect, useState } from "react"
+import { Button, Container, Form, ListGroup, Stack } from "react-bootstrap";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import FormContainer from "../components/CS-form-container";
+import { editUser, reset } from "../slices/auth-slice";
 
-   
-    return (
-      <h1>Welcome to your Profile!</h1>
-    )
+const Profile = () => {
+    const [showEditForm, setShowEditForm] = useState(false);
+    const dispatch = useAppDispatch();
+    const { user , isSuccess } = useAppSelector((state) => state.auth);
+    /*useEffect(() => {
+
+      });*/
+  const editButtonHendler = () => {
+    setShowEditForm(true);
+  }
+  const [firstname, setFirstName] = useState(user?.firstname)
+  const [secondname, setSecondName] = useState(user?.secondname)
+  const [email, setEmail] = useState(user?.email)
+  const [phonenumber, setPhonenumber] = useState(user?.phonenumber)
+
+  const clearForm = () => {
+    setFirstName('');
+    setEmail('');
+    setPhonenumber('');
+    setSecondName('');
+  }
+  const submitHandler = async (e:SyntheticEvent) => {
+    e.preventDefault();
+    const user = { email, phonenumber, firstname, secondname }
+    console.log(user);
+    dispatch(editUser(user))
+    setShowEditForm(false);
+  }
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(reset());
+      clearForm();
+    }
+  }, [isSuccess, dispatch]);
+  return (<Container>
+    {!showEditForm && <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          <h3> {firstname} {secondname}  Profile</h3>
+                          </ListGroup.Item>
+                        <ListGroup.Item>Email: {email}</ListGroup.Item>
+                        <ListGroup.Item>Phonenumber: {phonenumber}</ListGroup.Item>
+                        <Button variant="light" onClick={editButtonHendler} className='my-3'>Edit Profile</Button>
+                      </ListGroup>}
+      {showEditForm &&
+            <FormContainer>
+            <h1 className='my-3'>Edit Profile</h1>
+              <Form onSubmit={submitHandler}>
+                  <Stack gap={3}>
+                   <Form.Group controlId='firstName' className='my-3'>
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                        type='firstName'
+                        placeholder='Enter your first name'
+                        value={firstname}
+                        onChange={(e) => setFirstName(e.target.value)}
+                      />
+                     </Form.Group>
+      
+                    <Form.Group controlId='lastName' className='my-3'>
+                      <Form.Label>Last Name</Form.Label>
+                      <Form.Control
+                        type='lastName'
+                        placeholder='Enter your last name'
+                        value={secondname}
+                        onChange={(e) => setSecondName(e.target.value)}
+                      />
+                      </Form.Group>
+      
+                    <Form.Group controlId='email' className='my-3'>
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control
+                         type='email'
+                         placeholder='Enter your email address'
+                         value={email}
+                         onChange={(e) => setEmail(e.target.value)} 
+                       />
+                    </Form.Group>
+                    <Form.Group controlId='phonenumber' className='my-3'>
+                      <Form.Label>Phonenumber</Form.Label>
+                      <Form.Control
+                          type='phonenumber'
+                          placeholder='Enter your phonenumber'
+                          value={phonenumber}
+                          onChange={(e) => setPhonenumber(e.target.value)}
+                      />
+                      </Form.Group>
+                    <Button variant="light" type='submit' className='my-3'>
+                      Change
+                    </Button>
+                  </Stack>   
+             
+            </Form>
+          </FormContainer>
+      }
+    
+      </Container>)
+          
+    
+    
   }
   
   export default Profile

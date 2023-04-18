@@ -5,6 +5,8 @@ import { UserDto } from '../dto/UserDto';
 import authService from '../service/auth.service';
 import { LoginDto } from '../dto/LoginDto';
 import { RootState } from '../store';
+import { UserUpdateDto } from '../dto/UserUpdateDto';
+import userService from '../service/user-service';
 
 const storedUser: string | null = localStorage.getItem('user');
 // eslint-disable-next-line no-extra-boolean-cast
@@ -76,6 +78,16 @@ export const verifyJwt = createAsyncThunk(
     }
   }
 );
+export const editUser = createAsyncThunk(
+    'auth/editUser',
+    async (user_updated:UserUpdateDto, thunkAPI) => {
+      try {
+        return await userService.updateCurrentUser(user_updated);
+      } catch (error) {
+        return thunkAPI.rejectWithValue('Unable to update');
+      }
+    }
+  );
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -88,66 +100,78 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      // REGISTER
+      builder
+          // REGISTER
 
-      .addCase(register.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = action.payload;
-      })
-      .addCase(register.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.user = null;
-      })
-      // LOGIN
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.jwt = action.payload.jwt;
-        state.isAuthenticated = true;
-        state.user = action.payload.user;
-      })
-      .addCase(login.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.user = null;
-        state.isAuthenticated = false;
-        state.user = null;
-      })
-      // LOGOUT
-      .addCase(logout.fulfilled, (state) => {
-        state.user = null;
-        state.jwt = null;
-        state.isAuthenticated = false;
-      })
-      // VERIFY JWT
-      .addCase(verifyJwt.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(verifyJwt.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.isAuthenticated = true;
-        state.isVerifed = true;  
-      })
-      .addCase(verifyJwt.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.isAuthenticated = false;
-        state.isVerifed = false;  
-      });
+          .addCase(register.fulfilled, (state, action) => {
+              state.isLoading = false;
+              state.isSuccess = true;
+              state.user = action.payload;
+          })
+          .addCase(register.rejected, (state) => {
+              state.isLoading = false;
+              state.isError = true;
+              state.user = null;
+          })
+          // LOGIN
+          .addCase(login.pending, (state) => {
+              state.isLoading = true;
+          })
+          .addCase(login.fulfilled, (state, action) => {
+              state.isLoading = false;
+              state.isSuccess = true;
+              state.jwt = action.payload.jwt;
+              state.isAuthenticated = true;
+              state.user = action.payload.user;
+          })
+          .addCase(login.rejected, (state) => {
+              state.isLoading = false;
+              state.isError = true;
+              state.user = null;
+              state.isAuthenticated = false;
+              state.user = null;
+          })
+          // LOGOUT
+          .addCase(logout.fulfilled, (state) => {
+              state.user = null;
+              state.jwt = null;
+              state.isAuthenticated = false;
+          })
+          // VERIFY JWT
+          .addCase(verifyJwt.pending, (state) => {
+              state.isLoading = true;
+          })
+          .addCase(verifyJwt.fulfilled, (state) => {
+              state.isLoading = false;
+              state.isSuccess = true;
+              state.isAuthenticated = true;
+              state.isVerifed = true;
+          })
+          .addCase(verifyJwt.rejected, (state) => {
+              state.isLoading = false;
+              state.isError = true;
+              state.isAuthenticated = false;
+              state.isVerifed = false;
+          })
+          // editUser
+          .addCase(editUser.pending, (state) => {
+              state.isLoading = true;
+          })
+          .addCase(editUser.fulfilled, (state, action) => {
+              state.isLoading = false;
+              state.isSuccess = true;
+              state.user = action.payload;
+  
+          })
+          .addCase(editUser.rejected, (state) => {
+              state.isLoading = false;
+              state.isError = true;
+          });
   },
 });
 
 export const { reset } = authSlice.actions;
 
-export const selectedUser = (state: RootState) => {
-  return state.auth;
-};
+
 
 export default authSlice.reducer;
