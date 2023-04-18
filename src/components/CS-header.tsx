@@ -2,18 +2,20 @@ import React, { SyntheticEvent } from "react"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { logout } from "../slices/auth-slice";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const dispatch = useAppDispatch();
 
   const { isAuthenticated } = useAppSelector(
     (state) => state.auth
   );
-
+  const navigate  = useNavigate();
 
 
   const logoutHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(logout())
+    navigate('/')
   }
     return (
         <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
