@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 
 import { useAppDispatch, useAppSelector } from './hooks/redux-hooks';
 import { verifyJwt } from './slices/auth-slice';
+import Orders from './pages/Orders';
 
 function App() {
   const {   jwt } = useAppSelector((state) => state.auth
@@ -33,7 +34,8 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<Register />}></Route>
                 <Route path='/cart' element={<Cart/>}/>
-                <Route path='/profile' element={<Profile />}/>
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/orders' element={<Orders />} />
               </Routes>
             </Container>
        </main>
