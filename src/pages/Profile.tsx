@@ -6,11 +6,12 @@ import { editUser, reset } from "../slices/auth-slice";
 
 const Profile = () => {
     const [showEditForm, setShowEditForm] = useState(false);
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
     const { user , isSuccess } = useAppSelector((state) => state.auth);
     /*useEffect(() => {
 
       });*/
+      console.log(user);
   const editButtonHendler = () => {
     setShowEditForm(true);
   }
@@ -19,12 +20,6 @@ const Profile = () => {
   const [email, setEmail] = useState(user?.email)
   const [phonenumber, setPhonenumber] = useState(user?.phonenumber)
 
-  const clearForm = () => {
-    setFirstName('');
-    setEmail('');
-    setPhonenumber('');
-    setSecondName('');
-  }
   const submitHandler = async (e:SyntheticEvent) => {
     e.preventDefault();
     const user = { email, phonenumber, firstname, secondname }
@@ -35,7 +30,7 @@ const Profile = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(reset());
-      clearForm();
+     // clearForm();
     }
   }, [isSuccess, dispatch]);
   return (<Container>

@@ -26,7 +26,9 @@ const login = async (
 
   if (response.data) {
     localStorage.setItem('jwt', JSON.stringify({ token: response.data.token }));
+    console.log(response.data.token)
     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    console.log(response)
     const user_db: User = await userService.getCurrentUser(response.data.user_id);
     localStorage.setItem('user', JSON.stringify(user_db));
     return { jwt:{ token: response.data.token }, user: user_db };

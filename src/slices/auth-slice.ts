@@ -82,7 +82,10 @@ export const editUser = createAsyncThunk(
     'auth/editUser',
     async (user_updated:UserUpdateDto, thunkAPI) => {
       try {
-        return await userService.updateCurrentUser(user_updated);
+        console.log(user_updated)
+        const response = await userService.updateCurrentUser(user_updated, jwt);
+        localStorage.setItem('user', JSON.stringify(response));
+        return response;
       } catch (error) {
         return thunkAPI.rejectWithValue('Unable to update');
       }
@@ -158,9 +161,11 @@ export const authSlice = createSlice({
               state.isLoading = true;
           })
           .addCase(editUser.fulfilled, (state, action) => {
-              state.isLoading = false;
-              state.isSuccess = true;
-              state.user = action.payload;
+            state.isLoading = false;
+            state.isSuccess = true;
+            console.log(action.payload)
+            state.user = action.payload;
+            console.log(state.user)
   
           })
           .addCase(editUser.rejected, (state) => {
