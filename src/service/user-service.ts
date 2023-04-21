@@ -1,11 +1,10 @@
 import api from '../api';
 import { User } from '../models/User';
 import { UserUpdateDto } from '../dto/UserUpdateDto';
-import { Token } from '../models/Token';
 
 const getCurrentUser = async () => {
   const response = await api.get(
-    `user/`
+    `user/one`
   );
   const user:User = {
     id: response.data.id,
@@ -19,7 +18,7 @@ const getCurrentUser = async () => {
 }
 const updateCurrentUser = async (user_updated: UserUpdateDto) => {
     const response = await api.put(
-      `user/`, user_updated
+      `user/update`, user_updated
     );
     const user:User = {
       id: response.data.id,

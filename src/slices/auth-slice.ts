@@ -7,9 +7,7 @@ import { UserUpdateDto } from '../dto/UserUpdateDto';
 import userService from '../service/user-service';
 import { Token } from '../models/Token';
 import api from '../api';
-const storedJwt: string | null = localStorage.getItem('token');
-// eslint-disable-next-line no-extra-boolean-cast
-const token: Token = !!storedJwt ? JSON.parse(storedJwt) : null;
+
 
 
 interface AsyncState {
@@ -48,7 +46,9 @@ export const login = createAsyncThunk(
   'auth/login',
   async (user: LoginDto, thunkAPI) => {
     try {
-      return await authService.login(user);
+      const response = await authService.login(user);
+      console.log(response);
+      return response;
     } catch (error) {
       return thunkAPI.rejectWithValue('Unable to login');
     }
@@ -63,9 +63,9 @@ export const checkAuthenticated = createAsyncThunk(
   'auth/checkAuthenticated',
   async (_:void, thunkAPI) => {
     try {
-      const storedJwt: string | null = localStorage.getItem('token');
+      const storedToken: string | null = localStorage.getItem('token');
       // eslint-disable-next-line no-extra-boolean-cast
-      const token: Token = !!storedJwt ? JSON.parse(storedJwt) : null;
+      const token: Token = !!storedToken ? JSON.parse(storedToken) : null;
       api.defaults.headers.Authorization = `Bearer ${token.token}`;
       return await userService.getCurrentUser();
     }catch (error) {
@@ -118,12 +118,12 @@ export const authSlice = createSlice({
               state.isLoading = false;
               state.isSuccess = true;
               state.isAuthenticated = true;
+              console.log(action.payload)
               state.user = action.payload;
           })
           .addCase(login.rejected, (state) => {
               state.isLoading = false;
               state.isError = true;
-              state.user = null;
               state.isAuthenticated = false;
               state.user = null;
           })
@@ -141,6 +141,7 @@ export const authSlice = createSlice({
               state.isLoading = false;
               state.isSuccess = true;
               state.isAuthenticated = true;
+              console.log(action.payload)
               state.user = action.payload;
           })
           .addCase(checkAuthenticated.rejected, (state) => {

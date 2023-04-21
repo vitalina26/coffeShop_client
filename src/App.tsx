@@ -14,10 +14,10 @@ function App() {
   const { isAuthenticated,user } = useAppSelector((state) => state.auth
   );
   const dispatch = useAppDispatch();
-  
-  dispatch(checkAuthenticated());
-    
 
+  useEffect(() => {
+      dispatch(checkAuthenticated());
+  },[user]);
 
   return (
     <>

@@ -24,9 +24,11 @@ const login = async (
   );
 
   if (response.data) {
+    console.log(response);
     localStorage.setItem('token',response.data.token);
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
     const user_db: User = await userService.getCurrentUser();
+    console.log(user_db);
     return  user_db;
   }
   return  null;
