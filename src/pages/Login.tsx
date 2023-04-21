@@ -18,13 +18,13 @@ const Login = () => {
   );
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (isSuccess) {
       dispatch(reset());
       clearForm();
       navigate('/');
     }
-  }, [isSuccess, dispatch]);
+  }, [isSuccess, dispatch]);*/
 
   useEffect(() => {
     if (!isAuthenticated) return;

@@ -3,7 +3,6 @@ import { Container, Nav, Navbar } from "react-bootstrap"
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { logout } from "../slices/auth-slice";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 const Header = () => {
   const [showForAdmin, setShowForAdmin] = useState(false);
   const dispatch = useAppDispatch();

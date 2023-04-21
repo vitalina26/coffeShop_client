@@ -1,5 +1,5 @@
-import React from "react"
-const Orders = () => {
+import React, { FC } from "react"
+const Orders: FC = () => {
 
    
     return (

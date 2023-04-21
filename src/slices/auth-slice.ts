@@ -1,20 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { User } from '../models/User';
-import { Jwt } from '../models/Jwt';
 import { UserDto } from '../dto/UserDto';
 import authService from '../service/auth.service';
 import { LoginDto } from '../dto/LoginDto';
-import { RootState } from '../store';
 import { UserUpdateDto } from '../dto/UserUpdateDto';
 import userService from '../service/user-service';
-
-const storedUser: string | null = localStorage.getItem('user');
+import { Token } from '../models/Token';
+import api from '../api';
+const storedJwt: string | null = localStorage.getItem('token');
 // eslint-disable-next-line no-extra-boolean-cast
-const user: User | null = !!storedUser ? JSON.parse(storedUser) : null;
-
-const storedJwt: string | null = localStorage.getItem('jwt');
-// eslint-disable-next-line no-extra-boolean-cast
-const jwt: Jwt = !!storedJwt ? JSON.parse(storedJwt) : null;
+const token: Token = !!storedJwt ? JSON.parse(storedJwt) : null;
 
 
 interface AsyncState {
@@ -24,20 +19,17 @@ interface AsyncState {
 }
 
 interface AuthState extends AsyncState {
-  user?: User | null;
-  jwt?: Jwt | null;
-  isAuthenticated?: boolean;
-  isVerifed?: boolean;
+  user: User | null;
+  isAuthenticated: boolean;
+
 }
 
 const initialState: AuthState = {
-  user: user,
-  jwt: jwt,
+  user: null,
   isAuthenticated: false,
   isLoading: false,
   isSuccess: false,
   isError: false,
-  isVerifed: false,
 };
 
 export const register = createAsyncThunk(
@@ -56,7 +48,6 @@ export const login = createAsyncThunk(
   'auth/login',
   async (user: LoginDto, thunkAPI) => {
     try {
-        console.log(user);
       return await authService.login(user);
     } catch (error) {
       return thunkAPI.rejectWithValue('Unable to login');
@@ -68,13 +59,18 @@ export const logout = createAsyncThunk('auth/logout', async () => {
    authService.logout();
 });
 
-export const verifyJwt = createAsyncThunk(
-  'auth/verify-jwt',
-  async (jwt: string, thunkAPI) => {
+export const checkAuthenticated = createAsyncThunk(
+  'auth/checkAuthenticated',
+  async (_:void, thunkAPI) => {
     try {
-      return await authService.verifyJwt(jwt);
-    } catch (error) {
-      return thunkAPI.rejectWithValue('Unable to verify');
+      const storedJwt: string | null = localStorage.getItem('token');
+      // eslint-disable-next-line no-extra-boolean-cast
+      const token: Token = !!storedJwt ? JSON.parse(storedJwt) : null;
+      api.defaults.headers.Authorization = `Bearer ${token.token}`;
+      return await userService.getCurrentUser();
+    }catch (error) {
+      authService.logout();
+      return thunkAPI.rejectWithValue('Unable to get');
     }
   }
 );
@@ -82,9 +78,7 @@ export const editUser = createAsyncThunk(
     'auth/editUser',
     async (user_updated:UserUpdateDto, thunkAPI) => {
       try {
-        console.log(user_updated)
-        const response = await userService.updateCurrentUser(user_updated, jwt);
-        localStorage.setItem('user', JSON.stringify(response));
+        const response = await userService.updateCurrentUser(user_updated);
         return response;
       } catch (error) {
         return thunkAPI.rejectWithValue('Unable to update');
@@ -123,9 +117,8 @@ export const authSlice = createSlice({
           .addCase(login.fulfilled, (state, action) => {
               state.isLoading = false;
               state.isSuccess = true;
-              state.jwt = action.payload.jwt;
               state.isAuthenticated = true;
-              state.user = action.payload.user;
+              state.user = action.payload;
           })
           .addCase(login.rejected, (state) => {
               state.isLoading = false;
@@ -137,24 +130,24 @@ export const authSlice = createSlice({
           // LOGOUT
           .addCase(logout.fulfilled, (state) => {
               state.user = null;
-              state.jwt = null;
               state.isAuthenticated = false;
+             
           })
-          // VERIFY JWT
-          .addCase(verifyJwt.pending, (state) => {
+          // getCurrentUser
+          .addCase(checkAuthenticated.pending, (state) => {
               state.isLoading = true;
           })
-          .addCase(verifyJwt.fulfilled, (state) => {
+          .addCase(checkAuthenticated.fulfilled, (state,action) => {
               state.isLoading = false;
               state.isSuccess = true;
               state.isAuthenticated = true;
-              state.isVerifed = true;
+              state.user = action.payload;
           })
-          .addCase(verifyJwt.rejected, (state) => {
+          .addCase(checkAuthenticated.rejected, (state) => {
               state.isLoading = false;
               state.isError = true;
-              state.isAuthenticated = false;
-              state.isVerifed = false;
+              state.isAuthenticated = false ;
+       
           })
           // editUser
           .addCase(editUser.pending, (state) => {
@@ -163,14 +156,12 @@ export const authSlice = createSlice({
           .addCase(editUser.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
-            console.log(action.payload)
             state.user = action.payload;
-            console.log(state.user)
-  
           })
           .addCase(editUser.rejected, (state) => {
               state.isLoading = false;
               state.isError = true;
+              state.isAuthenticated = false;
           });
   },
 });

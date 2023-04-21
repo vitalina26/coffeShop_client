@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route , BrowserRouter} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Header from './components/CS-header';
@@ -7,22 +7,18 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
-
 import { useAppDispatch, useAppSelector } from './hooks/redux-hooks';
-import { verifyJwt } from './slices/auth-slice';
 import Orders from './pages/Orders';
-
+import { checkAuthenticated } from './slices/auth-slice';
 function App() {
-  const {   jwt } = useAppSelector((state) => state.auth
+  const { isAuthenticated,user } = useAppSelector((state) => state.auth
   );
-
   const dispatch = useAppDispatch();
+  
+  dispatch(checkAuthenticated());
+    
 
-  useEffect(() => {
-    if (!jwt || !jwt?.token) return;
 
-    dispatch(verifyJwt(jwt.token));
-  }, [jwt]);
   return (
     <>
     <BrowserRouter>
@@ -30,12 +26,18 @@ function App() {
         <main>
            <Container>
               <Routes>
-              <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/registration" element={<Register />}></Route>
-                <Route path='/cart' element={<Cart/>}/>
-                <Route path='/profile' element={<Profile />} />
-                <Route path='/orders' element={<Orders />} />
+                <Route path="/registration" element={<Register />} />
+                {user && isAuthenticated && <>
+                  <Route path='/profile' element={<Profile/> }/>
+                </>}
+                {user && isAuthenticated && user.role === 'user' && <>
+                  <Route path='/cart' element={<Cart/> }/>
+                </>}
+                {user && isAuthenticated && user.role === 'admin' && <>
+                  <Route path='/orders' element={<Orders/> }/>
+                </>}
               </Routes>
             </Container>
        </main>
