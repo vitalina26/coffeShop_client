@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react"
+import React, { SyntheticEvent } from "react"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { logout } from "../slices/auth-slice";

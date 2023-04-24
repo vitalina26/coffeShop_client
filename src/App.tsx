@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { Routes, Route , BrowserRouter} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Header from './components/CS-header';
@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
       dispatch(checkAuthenticated());
-  },[user]);
+  },[]);
 
   return (
     <>

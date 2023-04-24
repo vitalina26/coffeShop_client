@@ -5,7 +5,6 @@ import authService from '../service/auth.service';
 import { LoginDto } from '../dto/LoginDto';
 import { UserUpdateDto } from '../dto/UserUpdateDto';
 import userService from '../service/user-service';
-import { Token } from '../models/Token';
 import api from '../api';
 
 
@@ -65,8 +64,8 @@ export const checkAuthenticated = createAsyncThunk(
     try {
       const storedToken: string | null = localStorage.getItem('token');
       // eslint-disable-next-line no-extra-boolean-cast
-      const token: Token = !!storedToken ? JSON.parse(storedToken) : null;
-      api.defaults.headers.Authorization = `Bearer ${token.token}`;
+      const token: string = !!storedToken ? storedToken : '';
+      api.defaults.headers.Authorization = `Bearer ${token}`;
       return await userService.getCurrentUser();
     }catch (error) {
       authService.logout();
