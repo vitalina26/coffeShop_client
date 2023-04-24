@@ -1,12 +1,10 @@
-import axios from 'axios';
+import api from '../api';
 import { User } from '../models/User';
 import { UserUpdateDto } from '../dto/UserUpdateDto';
-import { Jwt } from '../models/Jwt';
-const base_url = 'http://localhost:3000/';
 
-const getCurrentUser = async (id: string) => {
-  const response = await axios.get(
-    `${base_url}user/${id}`
+const getCurrentUser = async () => {
+  const response = await api.get(
+    `user/one`
   );
   const user:User = {
     id: response.data.id,
@@ -18,16 +16,9 @@ const getCurrentUser = async (id: string) => {
   }
   return user;
 }
-const updateCurrentUser = async (user_updated: UserUpdateDto,jwt: Jwt) => {
-  console.log(user_updated);
-  console.log(jwt);
-    const response = await axios.put(
-      `${base_url}user/`, user_updated,
-      {
-        headers: {
-          Authorization : `Bearer ${jwt.token}`
-          }
-        }
+const updateCurrentUser = async (user_updated: UserUpdateDto) => {
+    const response = await api.put(
+      `user/update`, user_updated
     );
     const user:User = {
       id: response.data.id,

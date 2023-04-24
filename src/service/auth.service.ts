@@ -1,13 +1,12 @@
-import axios from 'axios';
 import { UserDto } from '../dto/UserDto';
 import { LoginDto } from '../dto/LoginDto';
 import { User } from '../models/User';
-import  userService  from './user-service'
-const base_url = 'http://localhost:3000/';
+import userService from './user-service'
+import api from '../api';
 const register = async (newUser: UserDto) => {
   console.log( newUser);
-  const response = await axios.post(
-    `${base_url}auth/register`,
+  const response = await api.post(
+    `auth/register`,
     newUser
   );
   console.log( newUser);
@@ -19,48 +18,45 @@ const login = async (
   user: LoginDto
 ) => {
   console.log(user)
-  const response = await axios.post(
-    `${base_url}auth/login`,
+  const response = await api.post(
+    `auth/login`,
     user
   );
 
   if (response.data) {
-    localStorage.setItem('jwt', JSON.stringify({ token: response.data.token }));
-    console.log(response.data.token)
-    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-    console.log(response)
-    const user_db: User = await userService.getCurrentUser(response.data.user_id);
-    localStorage.setItem('user', JSON.stringify(user_db));
-    return { jwt:{ token: response.data.token }, user: user_db };
+    console.log(response);
+    localStorage.setItem('token',response.data.token);
+    api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+    const user_db: User = await userService.getCurrentUser();
+    console.log(user_db);
+    return  user_db;
   }
-  return { jwt: { token: response.data.token }, user: null };
+  return  null;
 };
 
 const logout = (): void => {
-  localStorage.removeItem('user');
-  localStorage.removeItem('jwt');
-  axios.defaults.headers.common['Authorization'] = `Bearer`;
+  localStorage.removeItem('token');
+  delete api.defaults.headers.Authorization;
 };
-
-const verifyJwt = async (jwt: string): Promise<boolean> => {
-  const response = await axios.post(
-    `${base_url}auth/verify-jwt`,
-    { jwt }
-  );
-
-  if (response.data) {
-    const jwtExpirationMs = response.data.exp * 1000;
-    return jwtExpirationMs > Date.now();
-  }
-
-  return false;
-};
+/*const getCurrentUser = (user_id: string): boolean => {
+  let isAuth = true;
+  api.get(
+    `user/${user_id}`
+  ).catch((error: AxiosError) => {
+    if (error.response?.status === 401) {
+      isAuth = false;
+      logout();
+    } else {
+      throw error;
+    }
+  });
+  return isAuth;
+}*/
 
 const authService = {
   register,
   login,
   logout,
-  verifyJwt,
 };
 
 export default authService;
