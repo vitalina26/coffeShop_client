@@ -6,7 +6,7 @@ import {
 } from 'react';
 import React from 'react';
 
-import { Form, Button, Stack } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import FormContainer from '../components/CS-form-container'
 import {  useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
@@ -54,7 +54,6 @@ const Register: FC = () => {
     <FormContainer>
       <h1 className='my-3'>Sign Up</h1>
         <Form onSubmit={submitHandler}>
-            <Stack gap={3}>
              <Form.Group controlId='firstName' className='my-3'>
               <Form.Label>First Name</Form.Label>
               <Form.Control
@@ -118,9 +117,7 @@ const Register: FC = () => {
               <Button variant="light" type='submit' className='my-3'>
                 Sign Up
               </Button>
-            </Stack>   
-       
-      </Form>
+         </Form>
     </FormContainer>
   )
 }

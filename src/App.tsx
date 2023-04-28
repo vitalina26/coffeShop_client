@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import { useAppDispatch, useAppSelector } from './hooks/redux-hooks';
 import Orders from './pages/Orders';
 import { checkAuthenticated } from './slices/auth-slice';
+import CoffeForm from './pages/CoffeForm';
 function App() {
   const { isAuthenticated,user } = useAppSelector((state) => state.auth
   );
@@ -36,7 +37,8 @@ function App() {
                   <Route path='/cart' element={<Cart/> }/>
                 </>}
                 {user && isAuthenticated && user.role === 'admin' && <>
-                  <Route path='/orders' element={<Orders/> }/>
+                  <Route path='/orders' element={<Orders />} />
+                  <Route path='/coffeform/:action/:id' element={<CoffeForm />} />
                 </>}
               </Routes>
             </Container>
