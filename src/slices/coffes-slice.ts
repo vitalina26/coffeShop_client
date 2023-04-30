@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Coffe } from '../models/Coffe';
 import coffeService from '../service/coffe-service';
-
+import  axios, {AxiosError} from 'axios';
 interface CoffeState  {
     allCoffes: Coffe[] ;
   }
@@ -15,6 +15,10 @@ export const getAllCoffes = createAsyncThunk(
         const response = await coffeService.getAllCoffes();
         return response;
       } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.log(error)
+          return thunkAPI.rejectWithValue("");
+        } 
         return thunkAPI.rejectWithValue('Unable to update');
       }
     }
@@ -29,7 +33,8 @@ export const getAllCoffes = createAsyncThunk(
         builder
             //getAllCoffes
             .addCase(getAllCoffes.fulfilled, (state,action) => {
-                state.allCoffes = action.payload;
+              state.allCoffes = action.payload;
+              console.log(action.payload);
             })
             .addCase(getAllCoffes.rejected, (state) => {
               state.allCoffes = [];

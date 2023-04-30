@@ -1,4 +1,5 @@
 export interface CoffeDto {
+    img_url: string;
     name: string;
     price: number;
     description: string;

@@ -19,7 +19,8 @@ const initialState: CoffeState = {
         cookingMethod:'',
         degreeOfRoasting:'',
         country:'',
-        processingType:'',
+        processingType: '',
+        img_url: ''
     }, 
 };
 
@@ -72,7 +73,7 @@ export const deleteCoffe = createAsyncThunk(
     }
 );
 export const getCoffe = createAsyncThunk(
-    'coffe/createCoffe',
+    'coffe/getCoffe',
     async (id: string, thunkAPI) => {
        try {
            const response = await coffeService.getCoffe(id);
@@ -100,7 +101,8 @@ export const getCoffe = createAsyncThunk(
             cookingMethod:'',
             degreeOfRoasting:'',
             country:'',
-            processingType:'',
+            processingType: '',
+            img_url: ''
         };
       },},
     extraReducers: (builder) => {
@@ -108,19 +110,6 @@ export const getCoffe = createAsyncThunk(
             //createCoffe
             .addCase(createCoffe.fulfilled, (state,action) => {
                 state.coffe = action.payload;
-            })
-            .addCase(createCoffe.rejected, (state) => {
-                state.coffe = {
-                    id: '',
-                    name: '',
-                    price: 0,
-                    description: '',
-                    beansClass: '',
-                    cookingMethod:'',
-                    degreeOfRoasting:'',
-                    country:'',
-                    processingType:'',
-                };
             })
             //editCoffe
             .addCase(editCoffe.fulfilled, (state,action) => {
@@ -137,10 +126,13 @@ export const getCoffe = createAsyncThunk(
                     cookingMethod:'',
                     degreeOfRoasting:'',
                     country:'',
-                    processingType:'',
+                    processingType: '',
+                    img_url: ''
                 };
             })
-        
+            .addCase(getCoffe.fulfilled, (state,action) => {
+              state.coffe = action.payload;
+          })
            
     },
   });

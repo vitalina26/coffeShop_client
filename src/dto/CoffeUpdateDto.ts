@@ -3,6 +3,7 @@ export interface CoffeUpdateDto {
     price?: number;
     description?: string;
     beansClass?: string;
+    img_url?: string;
     cookingMethod?: string;
     degreeOfRoasting?: string;
     country?: string;

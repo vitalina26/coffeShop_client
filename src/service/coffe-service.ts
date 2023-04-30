@@ -4,11 +4,12 @@ import { CoffeUpdateDto } from '../dto/CoffeUpdateDto';
 import { Coffe } from '../models/Coffe';
 const getCoffe = async (id: string) => {
     const response = await api.get(
-      `coffe/${id})`
+      `coffe/${id}`
     );
     const coffe: Coffe = response.data;
+      
     return coffe;
-}
+  }
 const updateCoffe = async (coffe_updated: CoffeUpdateDto , id: string) => {
       const response = await api.put(
         `coffe/${id}`, coffe_updated
@@ -19,22 +20,23 @@ const updateCoffe = async (coffe_updated: CoffeUpdateDto , id: string) => {
   
 const getAllCoffes = async () => {
       const response = await api.get(
-       `coffe/`,
+       `coffe/all`,
       );
+      console.log(response)
       const coffes: Coffe[] = response.data;
       return coffes;
 }
 const deleteCoffe = async (id: string) => {
-    await api.put(`coffe/${id}`);
+    await api.delete(`coffe/${id}`);
 }    
 const createCoffe = async (coffeDto: CoffeDto) => {
       const response = await api.post(
         `coffe/`, coffeDto
       );
-       const { creator_id, coffe} = response.data;
-      return coffe;
+       //const { creator_id, coffe} = response.data;
+      return response.data;
 }
-
+    
   
 const coffeService = {
       getAllCoffes,

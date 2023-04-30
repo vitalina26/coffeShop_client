@@ -1,32 +1,59 @@
 import React, { SyntheticEvent, useEffect,useState } from "react"
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
-import { Form, Button, Stack } from 'react-bootstrap'
-import { CoffeDto } from "../dto/CoffeDto"
-import FormContainer from "../components/CS-form-container"
+import { Form, Button } from 'react-bootstrap'
+import FormContainer from "../components/CS-form-container/CS-form-container"
 import { useNavigate, useParams } from "react-router-dom";
 import { createCoffe, editCoffe, getCoffe } from "../slices/coffe-slice"
 import { reset } from "../slices/auth-slice"
+import Image from 'react-bootstrap/Image'
+import axios from 'axios'
+import styled from "styled-components";
+import { Coffe } from "../models/Coffe";
+const StyledButton = styled(Button) `     
+  margin:10px;
+  display:block;
+`
+
 const CoffeForm = () => {
     const {action, id} = useParams() as {action: string, id: string};
-    const dispatch  = useAppDispatch()
-    const { coffe } = useAppSelector((state) => state.coffe)
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (action === 'edit') {
-            dispatch(getCoffe(id));
-        } else {
-            dispatch(reset());
+  const dispatch = useAppDispatch()
+  const { coffe } = useAppSelector((state) => state.coffe)
+  const navigate = useNavigate()
+  const [name, setName] = useState(coffe.name)
+  const [price, setPrice] = useState(coffe.price)
+  const [description, setDescription] = useState(coffe.description)
+  const [beansClass, setBeansClass] = useState(coffe.beansClass)
+  const [country, setCountry] = useState(coffe.country)
+  const [cookingMethod, setCookingMethod] = useState(coffe.cookingMethod)
+  const [degreeOfRoasting, setDegreeOfRoasting] = useState(coffe.degreeOfRoasting)
+  const [processingType, setProcessingType] = useState(coffe.processingType)
+  const [img_url, setImgUrl] = useState(coffe.img_url)
+  const [image, setImage ] = useState('');
+  useEffect(() => {
+      if (action === 'edit') {
+        dispatch(getCoffe(id)).then(
+          (value) => {
+          const temp_coffe = value.payload as Coffe;
+          setName(temp_coffe.name);
+          setPrice(temp_coffe.price);
+          setDescription(temp_coffe.description);
+          setBeansClass(temp_coffe.beansClass);
+          setCountry(temp_coffe.country);
+          setDegreeOfRoasting(temp_coffe.degreeOfRoasting);
+          setProcessingType(temp_coffe.processingType);
+          setImgUrl(temp_coffe.img_url);
+          setCookingMethod(temp_coffe.cookingMethod);
+           }
+         )
+          
         }
+     else {
+          //clearForm();
+         // dispatch(reset());
+      }
     }, [])
-    const [name, setName] = useState(coffe.name)
-    const [price, setPrice] = useState(coffe.price)
-    const [description, setDescription] = useState(coffe.description)
-    const [beansClass, setBeansClass] = useState(coffe.beansClass)
-    const [country, setCountry] = useState(coffe.country)
-    const [cookingMethod, setCookingMethod] = useState(coffe.cookingMethod)
-    const [degreeOfRoasting, setDegreeOfRoasting] = useState(coffe.degreeOfRoasting)
-    const [processingType, setProcessingType] = useState(coffe.processingType)
 
+   
     const clearForm = () => {
       setName('');
       setPrice(0);
@@ -35,18 +62,42 @@ const CoffeForm = () => {
       setCountry('');
       setDegreeOfRoasting('');
       setProcessingType('');
+      setImgUrl('');
     }
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault();
-        const coffe_ = { id: coffe.id, cookingMethod, beansClass, name, price: price, description, degreeOfRoasting, processingType, country, }
-        if (action === 'edit') {
+        
+      if (action === 'edit') {
+        const coffe_ = { id: coffe.id, cookingMethod, beansClass, name, price: price, description, degreeOfRoasting, processingType, country,img_url }
             dispatch(editCoffe(coffe_))       
-        } else {
+      } else {
+        const coffe_ = { cookingMethod, beansClass, name, price: price, description, degreeOfRoasting, processingType, country,img_url }
             dispatch(createCoffe(coffe_))
         }
-        clearForm();
-        navigate('/')
-      }
+      clearForm();
+      navigate('/')
+      window.location.reload();
+    }
+  const handleUpload = (e: SyntheticEvent) => {
+      e.preventDefault();
+      console.log(image)
+      const formData = new FormData ();
+      formData.append("file", image);
+      formData.append("upload_preset", "pogpvl4r");
+      console.log(formData)
+      axios.post(
+      'https://api.cloudinary.com/v1_1/dibklmm6d/image/upload',
+      formData
+      )
+      .then((response) => {
+      console.log(response);
+      setImgUrl(response.data.secure_url);
+      })
+      .catch((error: any) => {
+      console.log(error);
+      });
+      
+      };
     return (
         <FormContainer>
         <h1 className='my-3'>Coffe</h1>
@@ -136,7 +187,17 @@ const CoffeForm = () => {
                           <option value="natural">Natural</option>
                           <option value="mixed">Mixed</option>
                    </Form.Select>
-                  </Form.Group>
+               </Form.Group>
+               <Form.Group className="position-relative mb-3">
+                 <Form.Label>File</Form.Label>
+                <Form.Control
+                     type="file"
+                     name="file"
+                     onChange={(e: any) => {  setImage(e.target.files[0]) } }
+                  />
+                 <StyledButton variant="light" onClick={handleUpload} className='my-3'>Upload</StyledButton>
+                <Image src={img_url} />
+                </Form.Group>
                 <Button variant="light" type='submit' className='my-3'>
                   { action === 'edit'? 'Update' : 'Add New'}
                 </Button>

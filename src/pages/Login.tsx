@@ -1,6 +1,6 @@
 import { Form, Button } from 'react-bootstrap'
 import React, { SyntheticEvent, useEffect, useState } from 'react'
-import FormContainer from '../components/CS-form-container'
+import FormContainer from '../components/CS-form-container/CS-form-container'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { login, reset } from '../slices/auth-slice'
 import { useNavigate } from 'react-router-dom'

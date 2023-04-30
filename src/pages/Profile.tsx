@@ -1,8 +1,22 @@
 import React, { SyntheticEvent, useEffect, useState } from "react"
 import { Button, Container, Form, ListGroup, Stack } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import FormContainer from "../components/CS-form-container";
+import FormContainer from "../components/CS-form-container/CS-form-container";
 import { editUser, reset } from "../slices/auth-slice";
+import styled from 'styled-components';
+const ListContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 100wh;
+    padding:30px 0px;
+    margin: 0px auto;
+   
+`
+const ListHeader = styled.h3`
+text-align: center;
+
+`  
 
 const Profile = () => {
     const [showEditForm, setShowEditForm] = useState(false);
@@ -33,20 +47,21 @@ const Profile = () => {
      // clearForm();
     }
   }, [isSuccess, dispatch]);
-  return (<Container>
+  return (<ListContainer>
     {!showEditForm && <ListGroup variant="flush">
+                        <ListHeader>Profile</ListHeader>
                         <ListGroup.Item>
-                          <h3> {firstname} {secondname}  Profile</h3>
+                          <h4> {firstname} {secondname}  </h4>
                           </ListGroup.Item>
                         <ListGroup.Item>Email: {email}</ListGroup.Item>
                         <ListGroup.Item>Phonenumber: {phonenumber}</ListGroup.Item>
-                        <Button variant="light" onClick={editButtonHendler} className='my-3'>Edit Profile</Button>
+                        <Button variant="light" onClick={editButtonHendler} >Edit Profile</Button>
                       </ListGroup>}
       {showEditForm &&
             <FormContainer>
             <h1 className='my-3'>Edit Profile</h1>
               <Form onSubmit={submitHandler}>
-                  <Stack gap={3}>
+                  
                    <Form.Group controlId='firstName' className='my-3'>
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
@@ -85,16 +100,16 @@ const Profile = () => {
                           onChange={(e) => setPhonenumber(e.target.value)}
                       />
                       </Form.Group>
-                    <Button variant="light" type='submit' className='my-3'>
+                    <Button variant="light" type='submit' >
                       Change
                     </Button>
-                  </Stack>   
+                  
              
             </Form>
           </FormContainer>
       }
     
-      </Container>)
+      </ListContainer>)
           
     
     

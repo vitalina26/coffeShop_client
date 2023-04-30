@@ -7,7 +7,7 @@ import {
 import React from 'react';
 
 import { Form, Button } from 'react-bootstrap'
-import FormContainer from '../components/CS-form-container'
+import FormContainer from '../components/CS-form-container/CS-form-container'
 import {  useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
 import { register, reset } from '../slices/auth-slice';

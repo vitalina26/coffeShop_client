@@ -2,11 +2,11 @@
 import  {AxiosError} from 'axios';
 import authService from './service/auth.service';
 import { logout } from "./slices/auth-slice"
-export const isAuth = (error:AxiosError) => {
+export const isAuth = (error: AxiosError) => {
     if (error.response?.status === 401) {
         //store.dispatch(logout());
         authService.logout();
-        return false;
+        window.location.reload();
     } 
-    return true;
+
 }

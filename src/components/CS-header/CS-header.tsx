@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from "react"
 import { Container, Nav, Navbar } from "react-bootstrap"
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { logout } from "../slices/auth-slice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { logout } from "../../slices/auth-slice";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
 
