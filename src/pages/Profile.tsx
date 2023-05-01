@@ -8,16 +8,21 @@ const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 100wh;
+    max-width: 50rem;
     padding:30px 0px;
     margin: 0px auto;
    
 `
 const ListHeader = styled.h3`
 text-align: center;
-
 `  
-
+const ListItem = styled(ListGroup.Item) `     
+//margin:15px
+`
+const ProfileButton = styled(Button) `     
+max-width: 10rem;
+margin-top:10px
+`
 const Profile = () => {
     const [showEditForm, setShowEditForm] = useState(false);
   const dispatch = useAppDispatch();
@@ -50,12 +55,12 @@ const Profile = () => {
   return (<ListContainer>
     {!showEditForm && <ListGroup variant="flush">
                         <ListHeader>Profile</ListHeader>
-                        <ListGroup.Item>
+                        <ListItem>
                           <h4> {firstname} {secondname}  </h4>
-                          </ListGroup.Item>
-                        <ListGroup.Item>Email: {email}</ListGroup.Item>
-                        <ListGroup.Item>Phonenumber: {phonenumber}</ListGroup.Item>
-                        <Button variant="light" onClick={editButtonHendler} >Edit Profile</Button>
+                          </ListItem>
+                        <ListItem>Email: {email}</ListItem>
+                        <ListItem>Phonenumber: {phonenumber}</ListItem>
+                        <ProfileButton variant="light" onClick={editButtonHendler} >Edit Profile</ProfileButton>
                       </ListGroup>}
       {showEditForm &&
             <FormContainer>

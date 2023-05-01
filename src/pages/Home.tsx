@@ -9,9 +9,10 @@ import { reset } from "../slices/auth-slice";
 import SearchByName from "../components/CS-search-by-name/CS-search-by-name";
 import Filters, { FiltersInterface } from "../components/CS-filter/CS-filter";
 import SortByPrice from "../components/CS-sorting/CS-sortByPrice";
+import CoffeItemsPagination from "../components/CS-pagination/CS-Pagination";
 export const ContainerOfCoffe = styled.div`
     display: flex;
-    justify-content: center;
+    //justify-content: center;
     gap:15px;
     flex-wrap: wrap;
     padding:30px;
@@ -26,7 +27,13 @@ export const ContainerOfFilter = styled.div`
     padding:30px;
     margin: 0px auto;
     /* background: white; */
-`   
+`  
+export const ContainerOfPagination = styled.div`
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+
+`  
 const Home = () => {
   const navigate  = useNavigate();
   const dispatch  = useAppDispatch()
@@ -47,11 +54,18 @@ const Home = () => {
     degreeOfRoasting: '',
     processingType: ''
   }
+
   const [orderValue, setOrderValue] = useState('')
   const [searchValue, setSearchValue] = useState('')
   const [filtersValue, setFiltersValue] = useState(initialFilters)
   const [showFilters, setShowFilters] = useState(false)
-  
+  const [currentPage, setCurrentPage] = useState(1);
+// Кількість записів для відображення на кожній сторінці    
+  const [recordsPerPage] = useState(4);
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
   const filtersValueListener = (enteredFilterValue: FiltersInterface) => { 
     setFiltersValue(enteredFilterValue);
     setShowFilters(false);
@@ -59,10 +73,12 @@ const Home = () => {
   const orderValueListener = (enteredOrderValue:string) => { 
     setOrderValue(enteredOrderValue);
   };
-  const searchValueListener = (enteredFilterValue: string) => { 
-    setSearchValue(enteredFilterValue);
+  const searchValueListener = (enteredValue: string) => { 
+    setSearchValue(enteredValue);
   };
-  console.log(allCoffes);
+  const currentPageListener = (enteredValue: number) => { 
+    setCurrentPage(enteredValue);
+  };
   
   const filterSearchSortMyCoffeItems = () => {
     let res = [...allCoffes];
@@ -108,7 +124,8 @@ const Home = () => {
 
     return res;
 }
-const filteredCoffeItems = filterSearchSortMyCoffeItems();
+  const filteredCoffeItems = filterSearchSortMyCoffeItems();
+  //const nPages = Math.ceil(filterSearchSortMyCoffeItems.length / recordsPerPage)
   return (
     <Container>
       <h1>Wellcome to the CoffeShop</h1>
@@ -124,12 +141,17 @@ const filteredCoffeItems = filterSearchSortMyCoffeItems();
       </ContainerOfFilter>
       <ContainerOfCoffe>
       {filteredCoffeItems.length > 0 &&
-          filteredCoffeItems.map((coffe_item) => (
+          filteredCoffeItems.slice(indexOfFirstRecord, indexOfLastRecord).map((coffe_item) => (
             <CoffeItem key={coffe_item.id} coffe={coffe_item} role = {user ? user.role : 'none'} />
           ))}
       </ContainerOfCoffe>
-     
-      
+      <ContainerOfPagination>
+      <CoffeItemsPagination
+        nPages = { Math.ceil(filteredCoffeItems.length / recordsPerPage) }
+        currentPage = { currentPage } 
+        onCurrentPage = { currentPageListener }
+      />
+     </ContainerOfPagination>
     </Container>
 
     )
