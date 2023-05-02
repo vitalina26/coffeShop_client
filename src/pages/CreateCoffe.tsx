@@ -28,7 +28,8 @@ const CoffeForm = () => {
   const [degreeOfRoasting, setDegreeOfRoasting] = useState(coffe.degreeOfRoasting)
   const [processingType, setProcessingType] = useState(coffe.processingType)
   const [img_url, setImgUrl] = useState(coffe.img_url)
-  const [image, setImage ] = useState('');
+  const [image, setImage] = useState('');
+  const [validated, setValidated] = useState(false);
   useEffect(() => {
       if (action === 'edit') {
         dispatch(getCoffe(id)).then(
@@ -64,19 +65,25 @@ const CoffeForm = () => {
       setProcessingType('');
       setImgUrl('');
     }
-    const submitHandler = async (e: SyntheticEvent) => {
+    const submitHandler = async (e: any) => {
         e.preventDefault();
-        
-      if (action === 'edit') {
-        const coffe_ = { id: coffe.id, cookingMethod, beansClass, name, price: price, description, degreeOfRoasting, processingType, country,img_url }
-            dispatch(editCoffe(coffe_))       
-      } else {
-        const coffe_ = { cookingMethod, beansClass, name, price: price, description, degreeOfRoasting, processingType, country,img_url }
-            dispatch(createCoffe(coffe_))
-        }
-      clearForm();
-      navigate('/')
-      window.location.reload();
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.stopPropagation();
+      } 
+        if (action === 'edit') {
+          const coffe_ = { id: coffe.id, cookingMethod, beansClass, name, price: price, description, degreeOfRoasting, processingType, country,img_url }
+              dispatch(editCoffe(coffe_))       
+        } else {
+          const coffe_ = { cookingMethod, beansClass, name, price: price, description, degreeOfRoasting, processingType, country,img_url }
+              dispatch(createCoffe(coffe_))
+          }
+        clearForm();
+        navigate('/')
+        window.location.reload();
+      
+      
+      setValidated(true);
     }
   const handleUpload = (e: SyntheticEvent) => {
       e.preventDefault();
@@ -101,20 +108,25 @@ const CoffeForm = () => {
     return (
         <FormContainer>
         <h1 className='my-3'>Coffe</h1>
-          <Form onSubmit={submitHandler}>
+          <Form  validated={validated} onSubmit={submitHandler}>
                <Form.Group controlId='name' className='my-3'>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
+                    required
                     type='firstName'
                     placeholder='Enter your first name'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
+                <Form.Control.Feedback type="invalid">
+                  Please write a First Name.
+                </Form.Control.Feedback>
                  </Form.Group>
-  
+                
                 <Form.Group controlId='price' className='my-3'>
                   <Form.Label>Price</Form.Label>
                   <Form.Control
+                    required
                     type='lastName'
                     placeholder='Enter your last name'
                     value={price}
@@ -124,6 +136,7 @@ const CoffeForm = () => {
                <Form.Group controlId='description' className='my-3'>
                   <Form.Label>Description</Form.Label>
                   <Form.Control
+                     required
                      as="textarea" rows={4} type="description"
                      placeholder='Enter your description'
                      value={description}
@@ -132,9 +145,8 @@ const CoffeForm = () => {
                 </Form.Group>
                 <Form.Group controlId='country' className='my-3'>
                    <Form.Label>Country</Form.Label>
-                   <Form.Select aria-label="Default select example" value={country}
+                   <Form.Select aria-label="Default select example" value={country} required = {action !== 'edit'}
                       onChange={(e) => setCountry(e.target.value)}>
-                          <option>Open this select menu</option>
                           <option value="Ecuador">Ecuador</option>
                           <option value="Ethiopia">Ethiopia</option>
                           <option value="Guatemala">Guatemala</option>
@@ -147,9 +159,8 @@ const CoffeForm = () => {
                 
                 <Form.Group controlId='beansClass' className='my-3'>
                    <Form.Label>Beans Class</Form.Label>
-                   <Form.Select aria-label="Default select example" value={beansClass}
+                   <Form.Select aria-label="Default select example" value={beansClass} required = {action !== 'edit'}
                       onChange={(e) => setBeansClass(e.target.value)}>
-                          <option>Open this select menu</option>
                           <option value="premium">Premium</option>
                           <option value="spetialty">Spetialty</option>
                    </Form.Select>
@@ -157,9 +168,8 @@ const CoffeForm = () => {
 
                 <Form.Group controlId='cookingMethod' className='my-3'>
                    <Form.Label>Cooking Method</Form.Label>
-                   <Form.Select aria-label="Default select example" value={cookingMethod}
+                   <Form.Select aria-label="Default select example" value={cookingMethod} required = {action !== 'edit'}
                       onChange={(e) => setCookingMethod(e.target.value)}>
-                          <option>Open this select menu</option>
                           <option value="cezva">Cezva</option>
                           <option value="filter">Filter</option>
                           <option value="espresso">Espresso</option>
@@ -169,9 +179,8 @@ const CoffeForm = () => {
  
                <Form.Group controlId='degreeOfRoasting' className='my-3'>
                    <Form.Label>Degree Of Roasting</Form.Label>
-                   <Form.Select aria-label="Default select example" value={degreeOfRoasting}
+                   <Form.Select aria-label="Default select example" value={degreeOfRoasting} required = {action !== 'edit'}
                       onChange={(e) => setDegreeOfRoasting(e.target.value)}>
-                          <option>Open this select menu</option>
                           <option value="omni">Omni</option>
                           <option value="light">Light</option>
                           <option value="medium">Medium</option>
@@ -180,9 +189,8 @@ const CoffeForm = () => {
   
                 <Form.Group controlId='ProcessingType' className='my-3'>
                    <Form.Label>ProcessingType</Form.Label>
-                   <Form.Select aria-label="Default select example" value={processingType}
+                   <Form.Select aria-label="Default select example" value={processingType} required = {action !== 'edit'}
                       onChange={(e) => setProcessingType(e.target.value)}>
-                          <option>Open this select menu</option>
                           <option value="washed">Washed</option>
                           <option value="natural">Natural</option>
                           <option value="mixed">Mixed</option>
@@ -190,7 +198,8 @@ const CoffeForm = () => {
                </Form.Group>
                <Form.Group className="position-relative mb-3">
                  <Form.Label>File</Form.Label>
-                <Form.Control
+                  <Form.Control
+                    required = {action !== 'edit'}
                      type="file"
                      name="file"
                      onChange={(e: any) => {  setImage(e.target.files[0]) } }

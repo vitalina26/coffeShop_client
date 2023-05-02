@@ -29,7 +29,7 @@ const Header = () => {
               <Nav className='ms-auto'>
                 <Nav.Link onClick={logoutHandler} >Logout</Nav.Link>
                 <Nav.Link href='/profile'>Profile</Nav.Link>
-                {user?.role === 'user'&& <Nav.Link href='/cart'>Cart</Nav.Link> }
+                {user?.role !== 'admin'&& <Nav.Link href='/cart'>Cart</Nav.Link> }
                 {user?.role === 'admin' && <Nav.Link href='/orders'>Orders</Nav.Link>}
               </Nav>
             ) : (

@@ -145,13 +145,13 @@ const Home = () => {
             <CoffeItem key={coffe_item.id} coffe={coffe_item} role = {user ? user.role : 'none'} />
           ))}
       </ContainerOfCoffe>
-      <ContainerOfPagination>
-      <CoffeItemsPagination
-        nPages = { Math.ceil(filteredCoffeItems.length / recordsPerPage) }
-        currentPage = { currentPage } 
-        onCurrentPage = { currentPageListener }
-      />
-     </ContainerOfPagination>
+      {filteredCoffeItems.length > 0 && <ContainerOfPagination>
+        <CoffeItemsPagination
+          nPages={Math.ceil(filteredCoffeItems.length / recordsPerPage)}
+          currentPage={currentPage}
+          onCurrentPage={currentPageListener}
+        />
+      </ContainerOfPagination>}
     </Container>
 
     )
