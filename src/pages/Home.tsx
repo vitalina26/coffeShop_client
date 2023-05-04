@@ -3,13 +3,13 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { useNavigate } from "react-router-dom"
 import { Button, Container} from "react-bootstrap";
 import CoffeItem from "../components/CS-coffe/CS-coffe";
-import { getAllCoffes } from "../slices/coffes-slice";
+import { getAllCoffes } from "../slices/coffe-items-slice";
 import styled from "styled-components";
-import { reset } from "../slices/auth-slice";
 import SearchByName from "../components/CS-search-by-name/CS-search-by-name";
 import Filters, { FiltersInterface } from "../components/CS-filter/CS-filter";
 import SortByPrice from "../components/CS-sorting/CS-sortByPrice";
 import CoffeItemsPagination from "../components/CS-pagination/CS-Pagination";
+import { resetCoffe } from "../slices/coffe-slice";
 export const ContainerOfCoffe = styled.div`
     display: flex;
     //justify-content: center;
@@ -32,7 +32,6 @@ export const ContainerOfPagination = styled.div`
 display: flex;
 justify-content: center;
 flex-wrap: wrap;
-
 `  
 const Home = () => {
   const navigate  = useNavigate();
@@ -41,7 +40,7 @@ const Home = () => {
   const { user, isAuthenticated } = useAppSelector((state) => state.auth)
   const addHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
-   dispatch(reset());
+   dispatch(resetCoffe());
     navigate(`/coffeform/create/new/`)
   }
   useEffect(() => {

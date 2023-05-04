@@ -3,8 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { Form, Button } from 'react-bootstrap'
 import FormContainer from "../components/CS-form-container/CS-form-container"
 import { useNavigate, useParams } from "react-router-dom";
-import { createCoffe, editCoffe, getCoffe } from "../slices/coffe-slice"
-import { reset } from "../slices/auth-slice"
+import { createCoffe, editCoffe, getCoffe, resetCoffe } from "../slices/coffe-slice"
 import Image from 'react-bootstrap/Image'
 import axios from 'axios'
 import styled from "styled-components";
@@ -15,7 +14,7 @@ const StyledButton = styled(Button) `
 `
 
 const CoffeForm = () => {
-    const {action, id} = useParams() as {action: string, id: string};
+  const {action, id} = useParams() as {action: string, id: string};
   const dispatch = useAppDispatch()
   const { coffe } = useAppSelector((state) => state.coffe)
   const navigate = useNavigate()
@@ -79,6 +78,7 @@ const CoffeForm = () => {
               dispatch(createCoffe(coffe_))
           }
         clearForm();
+        dispatch(resetCoffe())
         navigate('/')
         window.location.reload();
       

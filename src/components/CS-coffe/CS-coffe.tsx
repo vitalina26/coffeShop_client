@@ -1,31 +1,39 @@
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
-import React, { SyntheticEvent, useEffect }  from "react"
+import React, { SyntheticEvent}  from "react"
 import MyVerticallyCenteredModal from '../CS-modal/CS-modal';
 import { deleteCoffe, getCoffe } from '../../slices/coffe-slice';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch } from '../../hooks/redux-hooks';
 import {  useNavigate } from "react-router-dom";
 import Nav from 'react-bootstrap/NavLink';
 import styled from 'styled-components';
-import { reset } from '../../slices/auth-slice';
 import { Coffe } from '../../models/Coffe';
+import { addToCart } from '../../slices/cart-slice';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import Toast from 'react-bootstrap/Toast';
 const CoffeItem = (props: { coffe: Coffe, role: string }) => {
   console.log(props.coffe.id)
   const navigate  = useNavigate();
   const dispatch  = useAppDispatch()
-  const { coffe } = useAppSelector((state) => state.coffe)
   const [modalShow, setModalShow] = React.useState(false);
+  const [show, setShow] = React.useState(false);
 
   const deleteHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(deleteCoffe(props.coffe.id))
-    window.location.reload();
+   // window.location.reload();
   }
   const editHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
     await dispatch(getCoffe(props.coffe.id));
     navigate(`/coffeform/edit/${props.coffe.id}/`)
+   
+  }
+  const addToCartHandler = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(addToCart(props.coffe.id));
+    setShow(true);
    
   }
  /* useEffect(() => {
@@ -60,10 +68,15 @@ const StyledButton = styled(Button) `
             </>
             ) : props.role === 'user' ?
             (
-                <StyledButton variant="light">Add to Cart</StyledButton>                   
+                <StyledButton variant="light"  onClick={addToCartHandler}>Add to Cart</StyledButton>                   
             ) : <></>          
         }        
         </Card.Body>
+      {show && <ToastContainer className="p-4" position='middle-end'>
+        <Toast bg='primary' onClose={() => setShow(false)} show={show} delay={2000} autohide>
+          <Toast.Body>Coffe added to cart</Toast.Body>
+        </Toast>
+      </ToastContainer>}
         <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
