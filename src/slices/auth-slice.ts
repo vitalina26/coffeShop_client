@@ -161,7 +161,6 @@ export const authSlice = createSlice({
           .addCase(editUser.rejected, (state) => {
               state.isLoading = false;
               state.isError = true;
-              state.isAuthenticated = false;
           });
   },
 });

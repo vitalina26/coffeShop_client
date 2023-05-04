@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from "react"
 import { Container, Nav, Navbar } from "react-bootstrap"
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { logout } from "../slices/auth-slice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { logout } from "../../slices/auth-slice";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
 
@@ -29,7 +29,7 @@ const Header = () => {
               <Nav className='ms-auto'>
                 <Nav.Link onClick={logoutHandler} >Logout</Nav.Link>
                 <Nav.Link href='/profile'>Profile</Nav.Link>
-                {user?.role === 'user'&& <Nav.Link href='/cart'>Cart</Nav.Link> }
+                {user?.role !== 'admin'&& <Nav.Link href='/cart'>Cart</Nav.Link> }
                 {user?.role === 'admin' && <Nav.Link href='/orders'>Orders</Nav.Link>}
               </Nav>
             ) : (
