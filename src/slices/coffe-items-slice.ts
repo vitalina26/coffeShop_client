@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Coffe } from '../models/Coffe';
 import coffeService from '../service/coffe-service';
 import  axios, {AxiosError} from 'axios';
-interface CoffeState  {
+interface CoffeItemsState  {
     allCoffes: Coffe[] ;
   }
-const initialState: CoffeState = {
+const initialState: CoffeItemsState = {
     allCoffes: [], 
 };
 export const getAllCoffes = createAsyncThunk(
@@ -26,10 +26,10 @@ export const getAllCoffes = createAsyncThunk(
 
 
   export const coffesSlice = createSlice({
-    name: 'auth',
+    name: 'coffe-items',
     initialState,
     reducers: {},
-    extraReducers: (builder) => {
+    extraReducers: (builder) => { 
         builder
             //getAllCoffes
             .addCase(getAllCoffes.fulfilled, (state,action) => {

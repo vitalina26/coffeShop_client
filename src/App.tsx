@@ -13,6 +13,7 @@ import { checkAuthenticated } from './slices/auth-slice';
 import CoffeForm from './pages/CreateCoffe';
 import { Main, SiteContainer } from './components/CS-site-container/CS-site-container';
 import Footer from './components/CS-footer/CS-footer';
+import OrderHistory from './pages/OrderHistory';
 //import Footer from './components/CS-footer/CS-footer';
 function App() {
   const { isAuthenticated,user } = useAppSelector((state) => state.auth
@@ -38,7 +39,8 @@ function App() {
                     <Route path='/profile' element={<Profile/> }/>
                   </>}
                   {user && isAuthenticated && user.role === 'user' && <>
-                    <Route path='/cart' element={<Cart/> }/>
+                    <Route path='/cart' element={<Cart />} />
+                    <Route path='/orderhistory' element={<OrderHistory/>} />
                   </>}
                   {user && isAuthenticated && user.role === 'admin' && <>
                     <Route path='/orders' element={<Orders />} />

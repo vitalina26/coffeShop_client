@@ -1,7 +1,6 @@
 import {
   FC,
   useState,
-  SyntheticEvent,
   useEffect,
 } from 'react';
 import React from 'react';
@@ -18,7 +17,7 @@ const Register: FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [phonenumber, setPhonenumber] = useState('')
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState('user')
   const [validated, setValidated] = useState(false);
 
   const clearForm = () => {

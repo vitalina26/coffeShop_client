@@ -19,6 +19,7 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
     const [degreeOfRoasting, setDegreeOfRoasting] = useState(props.coffe_filters.degreeOfRoasting)
     const [processingType, setProcessingType] = useState(props.coffe_filters.processingType)
     const submitHandler = (event: any) => {
+        event.preventDefault();
         const coffe_filters = {
             beansClass,
             country,
@@ -30,14 +31,13 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
     };
   return (
  
-        <FormContainer>
-        <h4 className='my-3'>Coffe Filter</h4>
-          <Form onSubmit={submitHandler}>
+        
+          <Form  onSubmit={submitHandler}>
                <Form.Group controlId='country' className='my-3'>
                    <Form.Label>Country</Form.Label>
                   <Form.Select aria-label="Default select example" value={country}
                   onChange={(e) => setCountry(e.target.value)}>
-                          <option>Open this select menu</option>
+                          <option>Select menu</option>
                           <option value="Ecuador">Ecuador</option>
                           <option value="Ethiopia">Ethiopia</option>
                           <option value="Guatemala">Guatemala</option>
@@ -52,7 +52,7 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
                    <Form.Label>Beans Class</Form.Label>
                   <Form.Select aria-label="Default select example" value={beansClass}
                   onChange={(e) => setBeansClass(e.target.value)}>
-                          <option>Open this select menu</option>
+                          <option>Select menu</option>
                           <option value="premium">Premium</option>
                           <option value="spetialty">Spetialty</option>
                    </Form.Select>
@@ -62,7 +62,7 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
                    <Form.Label>Cooking Method</Form.Label>
                   <Form.Select aria-label="Default select example" value={cookingMethod}
                   onChange={(e) => setCookingMethod(e.target.value)}>
-                          <option>Open this select menu</option>
+                          <option>Select menu</option>
                           <option value="cezva">Cezva</option>
                           <option value="filter">Filter</option>
                           <option value="espresso">Espresso</option>
@@ -74,7 +74,7 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
                    <Form.Label>Degree Of Roasting</Form.Label>
                   <Form.Select aria-label="Default select example" value={degreeOfRoasting}
                   onChange={(e) => setDegreeOfRoasting(e.target.value)}>
-                          <option>Open this select menu</option>
+                          <option>Select menu</option>
                           <option value="omni">Omni</option>
                           <option value="light">Light</option>
                           <option value="medium">Medium</option>
@@ -85,7 +85,7 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
                    <Form.Label>ProcessingType</Form.Label>
                   <Form.Select aria-label="Default select example" value={processingType}
                   onChange={(e) => setProcessingType(e.target.value)}>
-                          <option>Open this select menu</option>
+                          <option>Select menu</option>
                           <option value="washed">Washed</option>
                           <option value="natural">Natural</option>
                           <option value="mixed">Mixed</option>
@@ -93,7 +93,7 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
                </Form.Group>
                 <Button variant="light" type='submit' className='my-3'>Apply Filters</Button>
            </Form>
-      </FormContainer>
+      
   );
 };
 

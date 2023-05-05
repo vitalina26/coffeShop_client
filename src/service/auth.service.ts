@@ -36,6 +36,7 @@ const login = async (
 };
 
 const logout = (): void => {
+  localStorage.removeItem('cart');
   localStorage.removeItem('token');
   delete api.defaults.headers.Authorization;
 };

@@ -4,7 +4,6 @@ import { CoffeUpdateDto } from '../dto/CoffeUpdateDto';
 import coffeService from '../service/coffe-service';
 import { CoffeDto } from '../dto/CoffeDto';
 import  axios, {AxiosError} from 'axios';
-//import { isAuth } from '../defineKindOfError';
 import  isAuth  from '../middleImport';
 interface CoffeState  {
     coffe: Coffe;
@@ -89,9 +88,10 @@ export const getCoffe = createAsyncThunk(
     }
 );
   export const coffeSlice = createSlice({
-    name: 'auth',
+    name: 'coffe',
     initialState,
-    reducers: {reset: (state) => {
+    reducers: {
+      resetCoffe: (state) => {
         state.coffe =  {
             id: '',
             name: '',
@@ -136,7 +136,7 @@ export const getCoffe = createAsyncThunk(
            
     },
   });
-   // state.allCoffes[state.allCoffes.findIndex((item => item.id === action.payload.id))] = action.payload;
-    //state.allCoffes = state.allCoffes.filter(item => item.id !== action.payload)
-
+ export const {
+     resetCoffe
+    } = coffeSlice.actions;
     export default coffeSlice.reducer;

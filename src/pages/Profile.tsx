@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Button, Form, ListGroup, Stack } from "react-bootstrap";
+import { Button, Form, ListGroup } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import FormContainer from "../components/CS-form-container/CS-form-container";
 import { editUser, reset } from "../slices/auth-slice";
@@ -13,7 +13,7 @@ const ListContainer = styled.div`
     margin: 0px auto;
    
 `
-const ListHeader = styled.h3`
+export const ListHeader = styled.h3`
 text-align: center;
 `  
 const ListItem = styled(ListGroup.Item) `     
@@ -24,13 +24,9 @@ max-width: 10rem;
 margin-top:10px
 `
 const Profile = () => {
-    const [showEditForm, setShowEditForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const dispatch = useAppDispatch();
-    const { user , isSuccess } = useAppSelector((state) => state.auth);
-    /*useEffect(() => {
-
-      });*/
-      console.log(user);
+  const { user , isSuccess } = useAppSelector((state) => state.auth);
   const editButtonHendler = () => {
     setShowEditForm(true);
   }
