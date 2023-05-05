@@ -10,28 +10,32 @@ import Filters, { FiltersInterface } from "../components/CS-filter/CS-filter";
 import SortByPrice from "../components/CS-sorting/CS-sortByPrice";
 import CoffeItemsPagination from "../components/CS-pagination/CS-Pagination";
 import { resetCoffe } from "../slices/coffe-slice";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 export const ContainerOfCoffe = styled.div`
     display: flex;
-    //justify-content: center;
+    //justify-content: start;
     gap:15px;
     flex-wrap: wrap;
-    padding:30px;
+    padding-top:30px;
     margin: 0px auto;
     /* background: white; */
 `
 export const ContainerOfFilter = styled.div`
     display: flex;
-    //justify-content: ;
+    justify-content: start;
     gap:15px;
     flex-wrap: wrap;
-    padding:30px;
-    margin: 0px auto;
+   // padding:30px;
+   // margin-button: 20px;
     /* background: white; */
 `  
 export const ContainerOfPagination = styled.div`
 display: flex;
 justify-content: center;
 flex-wrap: wrap;
+margin: 20px;
 `  
 const Home = () => {
   const navigate  = useNavigate();
@@ -57,7 +61,6 @@ const Home = () => {
   const [orderValue, setOrderValue] = useState('')
   const [searchValue, setSearchValue] = useState('')
   const [filtersValue, setFiltersValue] = useState(initialFilters)
-  const [showFilters, setShowFilters] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
 // Кількість записів для відображення на кожній сторінці    
   const [recordsPerPage] = useState(4);
@@ -67,7 +70,6 @@ const Home = () => {
 
   const filtersValueListener = (enteredFilterValue: FiltersInterface) => { 
     setFiltersValue(enteredFilterValue);
-    setShowFilters(false);
   };
   const orderValueListener = (enteredOrderValue:string) => { 
     setOrderValue(enteredOrderValue);
@@ -129,21 +131,26 @@ const Home = () => {
     <Container>
       <h1>Wellcome to the CoffeShop</h1>
       <ContainerOfFilter>
-        {!showFilters &&
-          <>
-            <SearchByName onSearch={searchValueListener} value={searchValue} />
-            <SortByPrice onSorting={orderValueListener} value={orderValue } />
-            {isAuthenticated && user?.role === 'admin' && (<Button variant="light" onClick={addHandler} className='my-3'>Add New Coffe</Button>)}
-            <Button variant="light" onClick={(e) => setShowFilters(true)} className='my-3'>Show Filters</Button>
-          </>}
-        {showFilters&&<Filters onSubmitHandler={filtersValueListener} coffe_filters={filtersValue} />}        
+        <SearchByName onSearch={searchValueListener} value={searchValue} />
+        <SortByPrice onSorting={orderValueListener} value={orderValue } />
+        {isAuthenticated && user?.role === 'admin' && (<Button variant="light" onClick={addHandler} className='my-3'>Add New Coffe</Button>)}
       </ContainerOfFilter>
-      <ContainerOfCoffe>
-      {filteredCoffeItems.length > 0 &&
-          filteredCoffeItems.slice(indexOfFirstRecord, indexOfLastRecord).map((coffe_item) => (
-            <CoffeItem key={coffe_item.id} coffe={coffe_item} role = {user ? user.role : 'none'} />
-          ))}
-      </ContainerOfCoffe>
+      <Container>
+        <Row>
+          <Col>
+            <Filters onSubmitHandler={filtersValueListener} coffe_filters={filtersValue} />
+          </Col>
+          <Col lg={10}  xs = {12}>
+            <ContainerOfCoffe>
+              {filteredCoffeItems.length > 0 &&
+              filteredCoffeItems.slice(indexOfFirstRecord, indexOfLastRecord).map((coffe_item) => (
+                <CoffeItem key={coffe_item.id} coffe={coffe_item} role = {user ? user.role : 'none'} />
+                ))}
+            </ContainerOfCoffe>
+           </Col>
+          </Row>
+        </Container>
+      
       {filteredCoffeItems.length > 0 && <ContainerOfPagination>
         <CoffeItemsPagination
           nPages={Math.ceil(filteredCoffeItems.length / recordsPerPage)}

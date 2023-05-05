@@ -22,7 +22,7 @@ const CoffeItem = (props: { coffe: Coffe, role: string }) => {
   const deleteHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(deleteCoffe(props.coffe.id))
-   // window.location.reload();
+  
   }
   const editHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ const StyledButton = styled(Button) `
 `
 
   return (
-    <Card style={{ width: '15rem' }}>
+    <Card style={{ width: '13rem' }}>
       <Card.Img variant="top" src={props.coffe.img_url} />
       <Card.Body>
         <StyledNavLink onClick={() => setModalShow(true)}> {props.coffe.name} </StyledNavLink>

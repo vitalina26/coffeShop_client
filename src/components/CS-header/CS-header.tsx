@@ -37,7 +37,11 @@ const Header = () => {
               <Nav className='ms-auto'>
                 <Nav.Link onClick={logoutHandler} >Logout</Nav.Link>
                 <Nav.Link href='/profile'>Profile</Nav.Link>
-                {user?.role !== 'admin' && <Nav.Link href='/cart'><Wrapper><FontAwesomeIcon icon={faCartShopping} style={{ color: "#f3f4fb", }} /><Span>{items.length}</Span></Wrapper></Nav.Link> }
+                {user?.role !== 'admin' && <>
+                <Nav.Link href='/orderhistory'>Order History</Nav.Link>
+                  <Nav.Link href='/cart'><Wrapper><FontAwesomeIcon icon={faCartShopping} style={{ color: "#f3f4fb", }} /><Span>{items.length}</Span></Wrapper></Nav.Link>
+                </>
+                }
                 {user?.role === 'admin' && <Nav.Link href='/orders'>Orders</Nav.Link>}
               </Nav>
             ) : (

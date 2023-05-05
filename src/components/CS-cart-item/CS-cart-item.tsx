@@ -30,7 +30,7 @@ const CartItem = (props:  CoffeIdAndQuantity ) => {
   const removeHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(removeItem(props.coffe_id))
-   // window.location.reload();
+   
   }
   const incrementQuantityHandler = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -74,12 +74,12 @@ const StyledButton = styled(Button) `
 `
 
   return (
-    <Card style={{ width: '15rem' }}>
+    <Card style={{ width: '12rem' }}>
       <Card.Img variant="top" src={img_url} />
       <Card.Body>
         <StyledNavLink onClick={() => setModalShow(true)}> {name} </StyledNavLink>
         <ListGroup className="list-group-flush">
-        <ListGroup.Item>Price: {price * props.quantity}₴ </ListGroup.Item>        
+        <ListGroup.Item>Total price: {price * props.quantity}₴ </ListGroup.Item>        
         </ListGroup>
         <StyledButton variant="light" onClick={incrementQuantityHandler}>+</StyledButton>{props.quantity}<StyledButton variant="light" onClick={decrementQuantityHandler}>-</StyledButton>
         <StyledButton variant="light"  onClick={removeHandler}>Remove Item</StyledButton>                   

@@ -19,6 +19,7 @@ const Cart = () => {
   const createOrderHandler = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(createOrder({ items }));
+    navigate('/orderhistory')
   }
   const orderHistoryHandler = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -33,29 +34,27 @@ const Cart = () => {
    // justify-content: end ;
     gap:15px;
     flex-wrap: wrap;
-    padding-left:30px;
+   // padding-left:30px;
     margin: 0px auto;
     /* background: white; */
 `  
  const MainHeader = styled.h2`
- padding:30px;
+ 
+ padding-top:30px;
   `  
   return (
       <Container>
-      <MainHeader>My Cart</MainHeader>
-      <ContainerOfButtons>
-        <Button variant="light" onClick={orderHistoryHandler} className='my-3'>Order history</Button>
-      </ContainerOfButtons>
+      <MainHeader>My Cart {items.length==0 && 'is empty now =('}</MainHeader>
       <ContainerOfCoffe>
       {items.length > 0 &&
           items.map((cart_item) => (
             <CartItem key={cart_item.coffe_id} coffe_id={cart_item.coffe_id} quantity={cart_item.quantity} />
           ))}
       </ContainerOfCoffe>
-      <ContainerOfButtons>
+      {items.length > 0 &&<ContainerOfButtons>
         <Button variant="primary" onClick={createOrderHandler} className='my-3'>Create order</Button>
         <Button variant="light" onClick={cancelOrderHandler} className='my-3'>Cancel order</Button>
-      </ContainerOfButtons>
+      </ContainerOfButtons>}
       </Container>
       
 

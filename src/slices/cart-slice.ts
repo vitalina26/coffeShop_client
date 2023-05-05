@@ -85,8 +85,8 @@ export const createOrder= createAsyncThunk(
             builder
                   //createOrder
                   .addCase(createOrder.fulfilled, (state, action) => {
-                      state.items = [];
-                      console.log(action.payload);
+                    state.items = [];
+                    localStorage.removeItem('cart');
                   })
           },
       });
