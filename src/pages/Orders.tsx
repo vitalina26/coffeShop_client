@@ -24,7 +24,11 @@ const Orders: FC = () => {
     <Container>
       <h2>Orders</h2>
       {orders.length > 0 &&
-        orders.slice(indexOfFirstRecord, indexOfLastRecord).map((order) => (
+        orders.slice().sort(function (a, b) {
+          const objB = new Date(b.date);
+          const objA = new Date(a.date);
+          return +objB - +objA;
+        }).slice(indexOfFirstRecord, indexOfLastRecord).map((order) => (
           <OrdersItem key={order.id} order={order} isAdmin={true} />
         ))}
       {orders.length > 4 && <ContainerOfPagination>
