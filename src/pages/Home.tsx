@@ -44,7 +44,7 @@ const Home = () => {
   const { user, isAuthenticated } = useAppSelector((state) => state.auth)
   const addHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
-   dispatch(resetCoffe());
+    dispatch(resetCoffe());
     navigate(`/coffeform/create/new/`)
   }
   useEffect(() => {
@@ -151,7 +151,7 @@ const Home = () => {
           </Row>
         </Container>
       
-      {filteredCoffeItems.length > 0 && <ContainerOfPagination>
+      {filteredCoffeItems.length > 4 && <ContainerOfPagination>
         <CoffeItemsPagination
           nPages={Math.ceil(filteredCoffeItems.length / recordsPerPage)}
           currentPage={currentPage}

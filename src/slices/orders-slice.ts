@@ -9,6 +9,7 @@ interface OrdersState  {
 const initialState: OrdersState = {
     orders: [], 
 };
+
 export const getAllOrders = createAsyncThunk(
     'orders/getAllOrders',
     async (_: void, thunkAPI) => {

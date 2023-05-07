@@ -4,7 +4,7 @@ import { Order } from '../models/Order';
 
 const updateOrderStatus = async (status: string, id: string) => {
       const response = await api.put(
-        `order/${id}`, status
+            `order/${id}`, { status: status }
       );
       const order: Order = response.data;
       return order;
@@ -12,7 +12,7 @@ const updateOrderStatus = async (status: string, id: string) => {
   
 const getAllOrders = async () => {
       const response = await api.get(
-       `order/user/all`,
+       `order/all`,
       );
       console.log(response)
       const orders: Order[] = response.data;
@@ -20,7 +20,7 @@ const getAllOrders = async () => {
 }
 const getAllUserOrders = async () => {
     const response = await api.get(
-     `order/all`,
+     `order/user/all`,
     );
     console.log(response)
     const orders: Order[] = response.data;

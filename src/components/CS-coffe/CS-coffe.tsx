@@ -13,7 +13,6 @@ import { addToCart } from '../../slices/cart-slice';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
 const CoffeItem = (props: { coffe: Coffe, role: string }) => {
-  console.log(props.coffe.id)
   const navigate  = useNavigate();
   const dispatch  = useAppDispatch()
   const [modalShow, setModalShow] = React.useState(false);
@@ -32,7 +31,7 @@ const CoffeItem = (props: { coffe: Coffe, role: string }) => {
   }
   const addToCartHandler = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(addToCart(props.coffe.id));
+    dispatch(addToCart({ coffe_id: props.coffe.id, price: props.coffe.price}));
     setShow(true);
    
   }

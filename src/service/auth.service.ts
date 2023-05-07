@@ -38,6 +38,7 @@ const login = async (
 const logout = (): void => {
   localStorage.removeItem('cart');
   localStorage.removeItem('token');
+  localStorage.removeItem('counter');
   delete api.defaults.headers.Authorization;
 };
 /*const getCurrentUser = (user_id: string): boolean => {
