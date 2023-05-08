@@ -1,42 +1,18 @@
 import React, { SyntheticEvent, useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { useNavigate } from "react-router-dom"
 import { Button, Container} from "react-bootstrap";
-import CoffeItem from "../components/CS-coffe/CS-coffe";
-import { getAllCoffes } from "../slices/coffe-items-slice";
-import styled from "styled-components";
-import SearchByName from "../components/CS-search-by-name/CS-search-by-name";
-import Filters, { FiltersInterface } from "../components/CS-filter/CS-filter";
-import SortByPrice from "../components/CS-sorting/CS-sortByPrice";
-import CoffeItemsPagination from "../components/CS-pagination/CS-Pagination";
-import { resetCoffe } from "../slices/coffe-slice";
+import CoffeItem from "../../components/CS-coffe/CS-coffe";
+import { getAllCoffes } from "../../slices/coffe-items-slice";
+import SearchByName from "../../components/CS-search-by-name/CS-search-by-name";
+import Filters, { FiltersInterface } from "../../components/CS-filter/CS-filter";
+import SortByPrice from "../../components/CS-sorting/CS-sortByPrice";
+import CoffeItemsPagination from "../../components/CS-pagination/CS-Pagination";
+import { resetCoffe } from "../../slices/coffe-slice";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ContainerOfCoffe, ContainerOfFilter, ContainerOfPagination } from "./styledHome";
 
-export const ContainerOfCoffe = styled.div`
-    display: flex;
-    //justify-content: start;
-    gap:15px;
-    flex-wrap: wrap;
-    padding-top:30px;
-    margin: 0px auto;
-    /* background: white; */
-`
-export const ContainerOfFilter = styled.div`
-    display: flex;
-    justify-content: start;
-    gap:15px;
-    flex-wrap: wrap;
-   // padding:30px;
-   // margin-button: 20px;
-    /* background: white; */
-`  
-export const ContainerOfPagination = styled.div`
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-margin: 20px;
-`  
 const Home = () => {
   const navigate  = useNavigate();
   const dispatch  = useAppDispatch()
@@ -133,7 +109,7 @@ const Home = () => {
       <ContainerOfFilter>
         <SearchByName onSearch={searchValueListener} value={searchValue} />
         <SortByPrice onSorting={orderValueListener} value={orderValue } />
-        {isAuthenticated && user?.role === 'admin' && (<Button variant="light" onClick={addHandler} className='my-3'>Add New Coffe</Button>)}
+        {isAuthenticated && user?.role === 'admin' && (<Button variant="primary" onClick={addHandler} className='my-3'>Add New Coffe</Button>)}
       </ContainerOfFilter>
       <Container>
         <Row>

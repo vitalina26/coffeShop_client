@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/NavLink';
 import styled from 'styled-components';
 import { decrementQuantity, incrementQuantity, removeItem } from '../../slices/cart-slice';
 import { CoffeIdAndQuantity } from '../../dto/OrderDto';
+import { StyledButton, StyledNavLink } from './CS-styled-cart-item';
 
 const CartItem = (props:  CoffeIdAndQuantity ) => {
   const dispatch  = useAppDispatch()
@@ -35,19 +36,6 @@ const CartItem = (props:  CoffeIdAndQuantity ) => {
   }, [])
     
     
-    
-  const StyledNavLink = styled(Nav) `     
-    display: inline-block;
-    color: white;
-    margin:10px;
-
-  &:hover:: after {
-    width: 100 %;
-  }
-`
-const StyledButton = styled(Button) `     
-  margin:10px;
-`
 
   return (
     <Card style={{ width: '12rem' }}>

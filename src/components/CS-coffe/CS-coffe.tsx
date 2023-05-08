@@ -12,6 +12,7 @@ import { Coffe } from '../../models/Coffe';
 import { addToCart } from '../../slices/cart-slice';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
+import { StyledButton, StyledNavLink } from './CS-styled-coffe';
 const CoffeItem = (props: { coffe: Coffe, role: string }) => {
   const navigate  = useNavigate();
   const dispatch  = useAppDispatch()
@@ -35,22 +36,7 @@ const CoffeItem = (props: { coffe: Coffe, role: string }) => {
     setShow(true);
    
   }
- /* useEffect(() => {
-    console.log(props.coffe.id)
-    dispatch(getCoffe(props.coffe_id))
-  }, [])*/
-  const StyledNavLink = styled(Nav) `     
-    display: inline-block;
-    color: white;
-    margin:10px;
 
-  &:hover:: after {
-    width: 100 %;
-  }
-`
-const StyledButton = styled(Button) `     
-  margin:10px;
-`
 
   return (
     <Card style={{ width: '13rem' }}>

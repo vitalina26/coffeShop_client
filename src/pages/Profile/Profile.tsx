@@ -1,28 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Button, Form, ListGroup } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import FormContainer from "../components/CS-form-container/CS-form-container";
-import { editUser, reset } from "../slices/auth-slice";
-import styled from 'styled-components';
-const ListContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 50rem;
-    padding:30px 0px;
-    margin: 0px auto;
-   
-`
-export const ListHeader = styled.h3`
-text-align: center;
-`  
-const ListItem = styled(ListGroup.Item) `     
-//margin:15px
-`
-const ProfileButton = styled(Button) `     
-max-width: 10rem;
-margin-top:10px
-`
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { editUser, reset } from "../../slices/auth-slice";
+import { ListContainer, ListHeader, ListItem, ProfileButton, ProfileFormContainer } from "./styledProfile";
+
 const Profile = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const dispatch = useAppDispatch();
@@ -57,18 +38,18 @@ const Profile = () => {
     }
   }, [isSuccess, dispatch]);
   return (<ListContainer>
-    {!showEditForm && <ListGroup variant="flush">
+    {!showEditForm && <ListGroup style={{ borderRadius: '7px', backgroundColor: '#302f2f', padding: '16px'}} variant="flush">
                         <ListHeader>Profile</ListHeader>
                         <ListItem>
                           <h4> {firstname} {secondname}  </h4>
                           </ListItem>
                         <ListItem>Email: {email}</ListItem>
                         <ListItem>Phonenumber: {phonenumber}</ListItem>
-                        <ProfileButton variant="light" onClick={editButtonHendler} >Edit Profile</ProfileButton>
+                        <ProfileButton variant="primary" onClick={editButtonHendler} >Edit Profile</ProfileButton>
                       </ListGroup>}
       {showEditForm &&
-            <FormContainer>
-            <h1 className='my-3'>Edit Profile</h1>
+            <ProfileFormContainer>
+            <h2 className='my-3'>Edit Profile</h2>
               <Form noValidate validated={validated} onSubmit={submitHandler}>
                   
                    <Form.Group controlId='firstName' className='my-3'>
@@ -118,13 +99,13 @@ const Profile = () => {
                     Phonenumber must have 10 numbers.
                   </Form.Control.Feedback>
                       </Form.Group>
-                    <Button variant="light" type='submit' >
+                    <Button variant="primary" type='submit' >
                       Change
                     </Button>
                   
              
             </Form>
-          </FormContainer>
+          </ProfileFormContainer>
       }
     
       </ListContainer>)

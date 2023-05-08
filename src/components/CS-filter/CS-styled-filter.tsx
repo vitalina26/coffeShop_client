@@ -21,3 +21,9 @@ padding: 0.5rem 3rem;
 font-weight: bold;
 border-radius: 6px;
 `
+export const StyledFormContainer = styled.div`
+border-radius: 5px;
+margin-top: 7px;
+background-color: #302f2f;
+padding:1px 10px;
+`
