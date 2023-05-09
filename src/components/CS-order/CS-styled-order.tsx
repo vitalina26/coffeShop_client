@@ -15,3 +15,7 @@ font-weight: bold;
 //color:#277edb;
 
 `
+export const StyledH5 = styled.h5`
+border-bottom: 1px solid #8a8686;
+
+`

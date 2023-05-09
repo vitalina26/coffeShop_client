@@ -1,11 +1,10 @@
 import React, {  useState } from "react"
 import { Order } from "../../models/Order";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import Order_item from "../CS-order-item/CS-order-item";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { updateOrderStatus } from "../../slices/orders-slice";
-import styled from "styled-components";
-import { ContainerOfOrder, StyledLabel } from "./CS-styled-order";
+import { ContainerOfOrder, StyledH5, StyledLabel } from "./CS-styled-order";
 import { ContainerOfCoffe } from "../../pages/Home/styledHome";
 
 const OrdersItem = (props: { order: Order, isAdmin: boolean}) => {
@@ -44,11 +43,11 @@ return (
             </Col>
 
             <Col lg={4} >
-                <h5>Data: {dt.toLocaleString("en-US", { hour12: false })}</h5>
-                <h5> Total order price:  <span style={{ color: "#2a9fd6", fontWeight: 'bold'}}>{props.order.total_price}₴</span></h5>
+                <StyledH5>Data: {dt.toLocaleString("en-US", { hour12: false })}</StyledH5>
+                <StyledH5> Total order price:  <span style={{ color: "#2a9fd6", fontWeight: 'bold'}}>{props.order.total_price}₴</span></StyledH5>
             {props.isAdmin && <>
-                <h5>User Name: {`${ props.order.user_id.firstname } ${ props.order.user_id.secondname }`}</h5>
-                <h5>Phonenumber: {props.order.user_id.phonenumber}</h5>    
+                <StyledH5>User Name: {`${ props.order.user_id.firstname } ${ props.order.user_id.secondname }`}</StyledH5>
+                <StyledH5>Phonenumber: {props.order.user_id.phonenumber}</StyledH5>    
             </>}    
 
             </Col>

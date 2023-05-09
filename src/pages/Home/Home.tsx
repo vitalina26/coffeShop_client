@@ -12,6 +12,7 @@ import { resetCoffe } from "../../slices/coffe-slice";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ContainerOfCoffe, ContainerOfFilter, ContainerOfPagination } from "./styledHome";
+import { filterSearchSortMyCoffeItems } from "../../StrategyPattern/filterSearchSortFunc";
 
 const Home = () => {
   const navigate  = useNavigate();
@@ -56,53 +57,19 @@ const Home = () => {
   const currentPageListener = (enteredValue: number) => { 
     setCurrentPage(enteredValue);
   };
+  const filterValue = {
+    filtersValue: {
+      country: filtersValue.country,
+      beansClass: filtersValue.beansClass,
+      cookingMethod: filtersValue.cookingMethod,
+      degreeOfRoasting: filtersValue.degreeOfRoasting,
+      processingType: filtersValue.processingType,
+    },
+    orderValue,
+    searchValue,
+  }
   
-  const filterSearchSortMyCoffeItems = () => {
-    let res = [...allCoffes];
-    if (filtersValue.beansClass !== '') {
-        res = res.filter(item => {
-            return item.beansClass === filtersValue.beansClass;
-        });
-    }
-    if (filtersValue.cookingMethod !== '') {
-      res = res.filter(item => {
-          return item.cookingMethod === filtersValue.cookingMethod;
-      });
-    }
-    if (filtersValue.country !== '') {
-      res = res.filter(item => {
-          return item.country === filtersValue.country;
-      });
-    }
-    if (filtersValue.degreeOfRoasting !== '') {
-      res = res.filter(item => {
-          return item.degreeOfRoasting === filtersValue.degreeOfRoasting;
-      });
-    }
-    if (filtersValue.processingType !== '') {
-      res = res.filter(item => {
-          return item.processingType === filtersValue.processingType;
-      });
-    }
-
-    if (orderValue !== '') {
-        if (orderValue === 'asc') {
-            res.sort((a, b) => a.price - b.price);
-        }
-        if  (orderValue === 'desc') {
-            res.sort((a, b) => b.price - a.price);
-        }
-    }
-    if (searchValue !== '') {
-      res = res.filter(item => {
-          return item.name.toLowerCase().match(searchValue.toLowerCase())? true : false;
-      });
-    }
-
-    return res;
-}
-  const filteredCoffeItems = filterSearchSortMyCoffeItems();
-  //const nPages = Math.ceil(filterSearchSortMyCoffeItems.length / recordsPerPage)
+  const filteredCoffeItems = filterSearchSortMyCoffeItems([...allCoffes], filterValue);
   return (
     <Container>
       <h1>Wellcome to the CoffeShop</h1>
