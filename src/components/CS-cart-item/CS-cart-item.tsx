@@ -1,20 +1,27 @@
-import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
-import React, { SyntheticEvent, useEffect}  from "react"
+import React, { SyntheticEvent, useEffect,useState}  from "react"
 import MyVerticallyCenteredModal from '../CS-modal/CS-modal';
 import { getCoffe } from '../../slices/coffe-slice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import Nav from 'react-bootstrap/NavLink';
-import styled from 'styled-components';
 import { decrementQuantity, incrementQuantity, removeItem } from '../../slices/cart-slice';
 import { CoffeIdAndQuantity } from '../../dto/OrderDto';
 import { StyledButton, StyledNavLink } from './CS-styled-cart-item';
+import { Coffe } from '../../models/Coffe';
 
 const CartItem = (props:  CoffeIdAndQuantity ) => {
   const dispatch  = useAppDispatch()
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const { coffe } = useAppSelector((state) => state.coffe)
+  const [name, setName] = useState(coffe.name)
+  const [price, setPrice] = useState(coffe.price)
+  const [description, setDescription] = useState(coffe.description)
+  const [beansClass, setBeansClass] = useState(coffe.beansClass)
+  const [country, setCountry] = useState(coffe.country)
+  const [cookingMethod, setCookingMethod] = useState(coffe.cookingMethod)
+  const [degreeOfRoasting, setDegreeOfRoasting] = useState(coffe.degreeOfRoasting)
+  const [processingType, setProcessingType] = useState(coffe.processingType)
+  const [img_url, setImgUrl] = useState(coffe.img_url)
 
     
   const removeHandler = async (e: SyntheticEvent) => {
@@ -32,18 +39,31 @@ const CartItem = (props:  CoffeIdAndQuantity ) => {
     }
     
   useEffect(() => {
-    dispatch(getCoffe(props.coffe_id))
+    dispatch(getCoffe(props.coffe_id)).then(
+      (value) => {
+      const temp_coffe = value.payload as Coffe;
+      setName(temp_coffe.name);
+      setPrice(temp_coffe.price);
+      setDescription(temp_coffe.description);
+      setBeansClass(temp_coffe.beansClass);
+      setCountry(temp_coffe.country);
+      setDegreeOfRoasting(temp_coffe.degreeOfRoasting);
+      setProcessingType(temp_coffe.processingType);
+      setImgUrl(temp_coffe.img_url);
+      setCookingMethod(temp_coffe.cookingMethod);
+       }
+     )
   }, [])
     
     
 
   return (
     <Card style={{ width: '12rem' }}>
-      <Card.Img variant="top" src={coffe.img_url} />
+      <Card.Img variant="top" src={img_url} />
       <Card.Body>
-        <StyledNavLink onClick={() => setModalShow(true)}> {coffe.name} </StyledNavLink>
+        <StyledNavLink onClick={() => setModalShow(true)}> {name} </StyledNavLink>
         <ListGroup className="list-group-flush">
-        <ListGroup.Item>Total price: {coffe.price * props.quantity}₴ </ListGroup.Item>        
+        <ListGroup.Item>Total price: {price * props.quantity}₴ </ListGroup.Item>        
         </ListGroup>
         <StyledButton variant="light" onClick={incrementQuantityHandler}>+</StyledButton>{props.quantity}<StyledButton variant="light" onClick={decrementQuantityHandler}>-</StyledButton>
         <StyledButton variant="light"  onClick={removeHandler}>Remove Item</StyledButton>                   
@@ -51,7 +71,7 @@ const CartItem = (props:  CoffeIdAndQuantity ) => {
         <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        coffe={coffe}
+        coffe={{ name, price,description,beansClass,country,degreeOfRoasting,processingType ,img_url,cookingMethod}}
       />    
     </Card>
   );

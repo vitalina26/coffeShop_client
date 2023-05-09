@@ -20,7 +20,7 @@ const Cart = () => {
   const createOrderHandler = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(createOrder({ items }));
-    navigate('/')
+    navigate('/orderhistory')
     window.location.reload();
   }
   const cancelOrderHandler = (e: SyntheticEvent) => {
