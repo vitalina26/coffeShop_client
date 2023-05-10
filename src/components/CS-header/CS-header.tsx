@@ -1,12 +1,12 @@
 import React, { SyntheticEvent, useEffect } from "react"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { logout } from "../../slices/auth-slice";
+import { logout } from "../../store/slices/auth-slice";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping} from '@fortawesome/free-solid-svg-icons'
-import { Span, Wrapper } from "./CS-styled-header";
-import { getItems } from "../../slices/cart-slice";
+import { Span, Wrapper } from "./CS-header.style";
+import { getItems } from "../../store/slices/cart-slice";
 const Header = () => {
 
   const dispatch = useAppDispatch();

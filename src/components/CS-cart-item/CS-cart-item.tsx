@@ -2,11 +2,11 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import React, { SyntheticEvent, useEffect,useState}  from "react"
 import MyVerticallyCenteredModal from '../CS-modal/CS-modal';
-import { getCoffe } from '../../slices/coffe-slice';
+import { getCoffe } from '../../store/slices/coffe-slice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { decrementQuantity, incrementQuantity, removeItem } from '../../slices/cart-slice';
+import { decrementQuantity, incrementQuantity, removeItem } from '../../store/slices/cart-slice';
 import { CoffeIdAndQuantity } from '../../dto/OrderDto';
-import { StyledButton, StyledNavLink } from './CS-styled-cart-item';
+import { StyledButton, StyledNavLink } from './CS-cart-item.style';
 import { Coffe } from '../../models/Coffe';
 
 const CartItem = (props:  CoffeIdAndQuantity ) => {

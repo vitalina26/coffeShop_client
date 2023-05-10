@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Coffe } from '../models/Coffe';
-import coffeService from '../service/coffe-service';
+import { Coffe } from '../../models/Coffe';
+import coffeService from '../../service/api.services/coffe.service';
 import  axios, {AxiosError} from 'axios';
 interface CoffeItemsState  {
     allCoffes: Coffe[] ;

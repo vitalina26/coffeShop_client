@@ -2,11 +2,10 @@ import React, { SyntheticEvent, useEffect } from "react"
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { useNavigate } from "react-router-dom"
 import { Button, Container } from "react-bootstrap";
-import styled from "styled-components";
-import { ContainerOfCoffe } from "../Home/styledHome";
+import { ContainerOfCoffe } from "../Home/Home.style";
 import CartItem from "../../components/CS-cart-item/CS-cart-item";
-import { createOrder, getItems, resetCart } from "../../slices/cart-slice";
-import { ContainerOfButtons, MainHeader, PticeHeader } from "./styledCart";
+import { createOrder, getItems, resetCart } from "../../store/slices/cart-slice";
+import { ContainerOfButtons, MainHeader, PticeHeader } from "./Cart.style";
 
 const Cart = () => {
   const navigate  = useNavigate();

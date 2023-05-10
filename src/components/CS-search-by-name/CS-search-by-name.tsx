@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterContainer, FilterContainerControl, FilterLabel } from '../CS-filter/CS-styled-filter';
+import { FilterContainer, FilterContainerControl, FilterLabel } from '../CS-filter/CS-filter.style';
 import { Form } from 'react-bootstrap';
 const SearchByName = (props:{onSearch: (value:string) => void, value:string}) => {
     const onChangeListener = (event: any) => {

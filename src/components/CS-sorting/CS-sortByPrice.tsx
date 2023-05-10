@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import { FilterContainer, FilterContainerControl, FilterLabel, FilterSelect } from '../CS-filter/CS-styled-filter';
+import { FilterContainer, FilterContainerControl, FilterLabel, FilterSelect } from '../CS-filter/CS-filter.style';
 const SortByPrice = (props:{onSorting: (value:string) => void, value:string}) => {
     const onChangeListener = (event: any) => {
         props.onSorting(event.target.value)

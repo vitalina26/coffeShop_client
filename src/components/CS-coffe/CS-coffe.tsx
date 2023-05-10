@@ -3,16 +3,16 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import React, { SyntheticEvent}  from "react"
 import MyVerticallyCenteredModal from '../CS-modal/CS-modal';
-import { deleteCoffe, getCoffe } from '../../slices/coffe-slice';
+import { deleteCoffe, getCoffe } from '../../store/slices/coffe-slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import {  useNavigate } from "react-router-dom";
 import Nav from 'react-bootstrap/NavLink';
 import styled from 'styled-components';
 import { Coffe } from '../../models/Coffe';
-import { addToCart } from '../../slices/cart-slice';
+import { addToCart } from '../../store/slices/cart-slice';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
-import { StyledButton, StyledNavLink } from './CS-styled-coffe';
+import { StyledButton, StyledNavLink } from './CS-coffe.style';
 const CoffeItem = (props: { coffe: Coffe, role: string }) => {
   const navigate  = useNavigate();
   const dispatch  = useAppDispatch()

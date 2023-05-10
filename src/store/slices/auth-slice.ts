@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { User } from '../models/User';
-import { UserDto } from '../dto/UserDto';
-import authService from '../service/auth.service';
-import { LoginDto } from '../dto/LoginDto';
-import { UserUpdateDto } from '../dto/UserUpdateDto';
-import userService from '../service/user-service';
-import api from '../api';
+import { User } from '../../models/User';
+import { UserDto } from '../../dto/UserDto';
+import authService from '../../service/api.services/auth.service';
+import { LoginDto } from '../../dto/LoginDto';
+import { UserUpdateDto } from '../../dto/UserUpdateDto';
+import userService from '../../service/api.services/user.service';
+import api from '../../service/api';
 
 
 

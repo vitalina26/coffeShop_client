@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks"
-import { getAllOrders } from "../../slices/orders-slice"
+import { getAllOrders } from "../../store/slices/orders-slice"
 import { Container } from "react-bootstrap"
 import OrdersItem from "../../components/CS-order/CS-order"
-import { ContainerOfPagination } from "../Home/styledHome"
+import { ContainerOfPagination } from "../Home/Home.style"
 import CoffeItemsPagination from "../../components/CS-pagination/CS-Pagination"
 const Orders: FC = () => {
 

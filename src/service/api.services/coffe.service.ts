@@ -1,7 +1,7 @@
 import api from '../api';
-import { CoffeDto } from '../dto/CoffeDto';
-import { CoffeUpdateDto } from '../dto/CoffeUpdateDto';
-import { Coffe } from '../models/Coffe';
+import { CoffeDto } from '../../dto/CoffeDto';
+import { CoffeUpdateDto } from '../../dto/CoffeUpdateDto';
+import { Coffe } from '../../models/Coffe';
 const getCoffe = async (id: string) => {
     const response = await api.get(
       `coffe/${id}`

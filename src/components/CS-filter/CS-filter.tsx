@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { FilterContainer, FilterContainerControl, FilterLabel, FilterSelect, StyledFormContainer } from '../CS-filter/CS-styled-filter';
+import { FilterContainer, FilterContainerControl, FilterLabel, FilterSelect, StyledFormContainer } from './CS-filter.style';
 import FormContainer from '../CS-form-container/CS-form-container';
 export interface FiltersInterface{
 

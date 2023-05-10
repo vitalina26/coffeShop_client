@@ -1,6 +1,6 @@
 import api from '../api';
-import { User } from '../models/User';
-import { UserUpdateDto } from '../dto/UserUpdateDto';
+import { User } from '../../models/User';
+import { UserUpdateDto } from '../../dto/UserUpdateDto';
 const getCurrentUser = async () => {
   const response = await api.get(
     `user/one`

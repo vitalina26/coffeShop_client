@@ -1,7 +1,7 @@
-import { UserDto } from '../dto/UserDto';
-import { LoginDto } from '../dto/LoginDto';
-import { User } from '../models/User';
-import userService from './user-service'
+import { UserDto } from '../../dto/UserDto';
+import { LoginDto } from '../../dto/LoginDto';
+import { User } from '../../models/User';
+import userService from './user.service'
 import api from '../api';
 
 const register = async (newUser: UserDto) => {

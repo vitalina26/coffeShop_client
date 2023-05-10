@@ -1,6 +1,6 @@
 import api from '../api';
-import { OrderDto } from '../dto/OrderDto';
-import { Order } from '../models/Order';
+import { OrderDto } from '../../dto/OrderDto';
+import { Order } from '../../models/Order';
 
 const updateOrderStatus = async (status: string, id: string) => {
       const response = await api.put(

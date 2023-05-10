@@ -9,7 +9,7 @@ import { Form, Button } from 'react-bootstrap'
 import FormContainer from '../../components/CS-form-container/CS-form-container'
 import {  useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { register, reset } from '../../slices/auth-slice';
+import { register, reset } from '../../store/slices/auth-slice';
 
 const Register: FC = () => {
   const [firstname, setFirstName] = useState('')

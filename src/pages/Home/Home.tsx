@@ -3,15 +3,15 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { useNavigate } from "react-router-dom"
 import { Button, Container} from "react-bootstrap";
 import CoffeItem from "../../components/CS-coffe/CS-coffe";
-import { getAllCoffes } from "../../slices/coffe-items-slice";
+import { getAllCoffes } from "../../store/slices/coffe-items-slice";
 import SearchByName from "../../components/CS-search-by-name/CS-search-by-name";
 import Filters, { FiltersInterface } from "../../components/CS-filter/CS-filter";
 import SortByPrice from "../../components/CS-sorting/CS-sortByPrice";
 import CoffeItemsPagination from "../../components/CS-pagination/CS-Pagination";
-import { resetCoffe } from "../../slices/coffe-slice";
+import { resetCoffe } from "../../store/slices/coffe-slice";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { ContainerOfCoffe, ContainerOfFilter, ContainerOfPagination } from "./styledHome";
+import { ContainerOfCoffe, ContainerOfFilter, ContainerOfPagination } from "./Home.style";
 import { filterSearchSortMyCoffeItems } from "../../FilterStrategyPattern/filterSearchSortFunc";
 
 const Home = () => {

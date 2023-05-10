@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Coffe } from '../models/Coffe';
-import { CoffeUpdateDto } from '../dto/CoffeUpdateDto';
-import coffeService from '../service/coffe-service';
-import { CoffeDto } from '../dto/CoffeDto';
+import { Coffe } from '../../models/Coffe';
+import { CoffeUpdateDto } from '../../dto/CoffeUpdateDto';
+import coffeService from '../../service/api.services/coffe.service';
+import { CoffeDto } from '../../dto/CoffeDto';
 import  axios, {AxiosError} from 'axios';
-import  isAuth  from '../middleImport';
+import  isAuth  from '../../middleImport';
 interface CoffeState  {
     coffe: Coffe;
   }

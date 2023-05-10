@@ -3,11 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { Form, Button } from 'react-bootstrap'
 import FormContainer from "../../components/CS-form-container/CS-form-container"
 import { useNavigate, useParams } from "react-router-dom";
-import { createCoffe, editCoffe, getCoffe, resetCoffe } from "../../slices/coffe-slice"
+import { createCoffe, editCoffe, getCoffe, resetCoffe } from "../../store/slices/coffe-slice"
 import Image from 'react-bootstrap/Image'
 import axios from 'axios'
 import { Coffe } from "../../models/Coffe";
-import { StyledButton } from "./styledCreateCoffe";
+import { StyledButton } from "./CreateCoffe.style";
 
 const CoffeForm = () => {
   const {action, id} = useParams() as {action: string, id: string};

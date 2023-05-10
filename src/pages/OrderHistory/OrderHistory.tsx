@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
-import { getAllUserOrders } from "../../slices/orders-slice"
+import { getAllUserOrders } from "../../store/slices/orders-slice"
 import { Container } from "react-bootstrap"
 import OrdersItem from "../../components/CS-order/CS-order"
 import CoffeItemsPagination from "../../components/CS-pagination/CS-Pagination"
-import { ContainerOfPagination } from "../Home/styledHome"
+import { ContainerOfPagination } from "../Home/Home.style"
 
 const OrderHistory = () => {
   const dispatch = useAppDispatch()

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { Button, Form, ListGroup } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { editUser, reset } from "../../slices/auth-slice";
-import { ListContainer, ListHeader, ListItem, ProfileButton, ProfileFormContainer } from "./styledProfile";
+import { editUser, reset } from "../../store/slices/auth-slice";
+import { ListContainer, ListHeader, ListItem, ProfileButton, ProfileFormContainer } from "./Profile.style";
 
 const Profile = () => {
   const [showEditForm, setShowEditForm] = useState(false);

@@ -1,6 +1,5 @@
 import  {AxiosError} from 'axios';
-import authService from './service/auth.service';
-import { logout } from "./slices/auth-slice"
+import authService from './service/api.services/auth.service';
 export const isAuth = (error: AxiosError) => {
     if (error.response?.status === 401) {
         authService.logout();

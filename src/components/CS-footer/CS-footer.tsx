@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row } from './CS-footer-styles';
+import { Container, Row } from './CS-footer.style';
 
 
 const Footer = () => {
