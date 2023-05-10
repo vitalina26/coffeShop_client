@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import  axios from 'axios';
 import { Order } from '../../models/Order';
 import orderService from '../../service/api.services/order.service';
-import isAuth from '../../middleImport';
+import { isAuth } from '../../service/defineKindOfError';
 interface OrdersState  {
     orders: Order[] ;
 }

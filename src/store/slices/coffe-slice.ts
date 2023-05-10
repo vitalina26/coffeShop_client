@@ -4,7 +4,7 @@ import { CoffeUpdateDto } from '../../dto/CoffeUpdateDto';
 import coffeService from '../../service/api.services/coffe.service';
 import { CoffeDto } from '../../dto/CoffeDto';
 import  axios, {AxiosError} from 'axios';
-import  isAuth  from '../../middleImport';
+import { isAuth } from '../../service/defineKindOfError';
 interface CoffeState  {
     coffe: Coffe;
   }

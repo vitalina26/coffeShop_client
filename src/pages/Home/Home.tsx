@@ -12,7 +12,7 @@ import { resetCoffe } from "../../store/slices/coffe-slice";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ContainerOfCoffe, ContainerOfFilter, ContainerOfPagination } from "./Home.style";
-import { filterSearchSortMyCoffeItems } from "../../FilterStrategyPattern/filterSearchSortFunc";
+import { filterSearchSortMyCoffeItems } from "../../service/FilterStrategyPattern/filterSearchSortFunc";
 
 const Home = () => {
   const navigate  = useNavigate();

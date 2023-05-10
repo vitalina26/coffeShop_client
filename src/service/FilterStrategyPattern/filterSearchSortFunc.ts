@@ -1,5 +1,5 @@
-import { FiltersInterface } from "../components/CS-filter/CS-filter";
-import { Coffe } from "../models/Coffe";
+import { FiltersInterface } from "../../components/CS-filter/CS-filter";
+import { Coffe } from "../../models/Coffe";
 import { BeansClassFilterStrategy, CookingMethodFilterStrategy, CountryFilterStrategy, OrderByFilterStrategy, ProcessingFilterStrategy, RoastingFilterStrategy, SearchFilterStrategy } from "./ConcreteStrategies";
 import { Context } from "./context";
 interface FilterValues {
