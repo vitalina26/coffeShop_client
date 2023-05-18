@@ -9,7 +9,7 @@ import {  useNavigate } from "react-router-dom";
 import Nav from 'react-bootstrap/NavLink';
 import styled from 'styled-components';
 import { Coffe } from '../../models/Coffe';
-import { addToCart } from '../../store/slices/cart-slice';
+import { addToCart } from '../../store/slices/cart-slice/cart-slice';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
 import { StyledButton, StyledNavLink } from './CS-coffe.style';

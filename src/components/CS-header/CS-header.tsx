@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping} from '@fortawesome/free-solid-svg-icons'
 import { Span, Wrapper } from "./CS-header.style";
-import { getItems } from "../../store/slices/cart-slice";
+import { getItems } from "../../store/slices/cart-slice/cart-slice";
 const Header = () => {
 
   const dispatch = useAppDispatch();

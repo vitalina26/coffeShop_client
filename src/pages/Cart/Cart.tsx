@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Button, Container } from "react-bootstrap";
 import { ContainerOfCoffe } from "../Home/Home.style";
 import CartItem from "../../components/CS-cart-item/CS-cart-item";
-import { createOrder, getItems, resetCart } from "../../store/slices/cart-slice";
+import { createOrder, getItems, resetCart } from "../../store/slices/cart-slice/cart-slice";
 import { ContainerOfButtons, MainHeader, PticeHeader } from "./Cart.style";
 
 const Cart = () => {

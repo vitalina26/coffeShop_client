@@ -3,7 +3,7 @@ import authReducer from './slices/auth-slice';
 import coffeReducer from './slices/coffe-slice';
 import coffesReducer from './slices/coffe-items-slice';
 import ordersReducer from './slices/orders-slice';
-import cartReducer from './slices/cart-slice';
+import cartReducer from './slices/cart-slice/cart-slice';
 //import storage from 'redux-persist/lib/storage';
 //import thunk from 'redux-thunk';
 /*import {

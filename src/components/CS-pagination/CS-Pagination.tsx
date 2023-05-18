@@ -20,14 +20,14 @@ const CoffeItemsPagination = (props: {
     }
     return (
         <Pagination>
-            <Pagination.Prev onClick={prevPage}  disabled={props.currentPage === 1 ? true : false} />
+            <Pagination.Prev data-testid="prev-button" onClick={prevPage}  disabled={props.currentPage === 1 ? true : false} />
 
         {pageNumbers.map(pageNumber => (
-            <Pagination.Item key = { pageNumber } active = {props.currentPage === pageNumber}
+            <Pagination.Item data-testid="pagination-item" key = { pageNumber } active = {props.currentPage === pageNumber}
             onClick = {() => props.onCurrentPage(pageNumber)}>
             {pageNumber} </Pagination.Item>)
         )}
-      <Pagination.Next onClick={nextPage} disabled={props.currentPage === pageNumbers.length ? true : false} />
+      <Pagination.Next  data-testid="next-button" onClick={nextPage} disabled={props.currentPage === pageNumbers.length ? true : false} />
 
     </Pagination>
   );

@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import  axios from 'axios';
-import orderService from '../../service/api.services/order.service';
-import { isAuth } from '../../service/defineKindOfError';
-import { CoffeIdAndQuantity, OrderDto } from '../../dto/OrderDto';
+import orderService from '../../../service/api.services/order.service';
+import { isAuth } from '../../../service/defineKindOfError';
+import { CoffeIdAndQuantity, OrderDto } from '../../../dto/OrderDto';
 import { current } from '@reduxjs/toolkit'
 interface CartState  {
   items: CoffeIdAndQuantity[];
   counter: number;
 }
-const initialState: CartState = {
+export const initialState: CartState = {
   items: [], 
   counter: 0,
 };
