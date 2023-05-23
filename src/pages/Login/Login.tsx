@@ -1,13 +1,13 @@
 import { Form, Button } from 'react-bootstrap'
-import React, { SyntheticEvent, useEffect, useState } from 'react'
+import React, { SyntheticEvent } from 'react'
 import FormContainer from '../../components/CS-form-container/CS-form-container'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { login, reset } from '../../store/slices/auth-slice'
 import { useNavigate } from 'react-router-dom'
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [validated, setValidated] = useState(false);
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [validated, setValidated] = React.useState(false);
   const clearForm = () => {
     setEmail('');
     setPassword('');
@@ -19,7 +19,7 @@ const Login = () => {
   );
   const navigate = useNavigate();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isSuccess) {
       dispatch(reset());
       clearForm();
@@ -27,7 +27,7 @@ const Login = () => {
     }
   }, [isSuccess, dispatch]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!isAuthenticated) return;
     dispatch(reset());
     clearForm();

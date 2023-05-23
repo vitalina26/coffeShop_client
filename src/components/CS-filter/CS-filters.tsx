@@ -1,34 +1,51 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { FilterContainer, FilterContainerControl, FilterLabel, FilterSelect, StyledFormContainer } from './CS-filter.style';
-import FormContainer from '../CS-form-container/CS-form-container';
+import {  StyledFormContainer,StyledFiltersButton } from './CS-filter.style';
 export interface FiltersInterface{
-
-    country: string,
-    beansClass: string,
-    cookingMethod:string,
-    degreeOfRoasting:string,
-    processingType: string
+  country: string,
+  beansClass: string,
+  cookingMethod: string,
+  degreeOfRoasting: string,
+  processingType: string
     
 }
 import { Button, Form } from 'react-bootstrap';
 const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, coffe_filters: FiltersInterface}) => {
    
-    const [beansClass, setBeansClass] = useState(props.coffe_filters.beansClass)
-    const [country, setCountry] = useState(props.coffe_filters.country)
-    const [cookingMethod, setCookingMethod] = useState(props.coffe_filters.cookingMethod)
-    const [degreeOfRoasting, setDegreeOfRoasting] = useState(props.coffe_filters.degreeOfRoasting)
-    const [processingType, setProcessingType] = useState(props.coffe_filters.processingType)
-    const submitHandler = (event: any) => {
-        event.preventDefault();
-        const coffe_filters = {
-            beansClass,
-            country,
-            cookingMethod,
-            degreeOfRoasting,
-            processingType
-        }
-        props.onSubmitHandler(coffe_filters)
-    };
+  const [beansClass, setBeansClass] = useState(props.coffe_filters.beansClass);
+  const [country, setCountry] = useState(props.coffe_filters.country);
+  const [cookingMethod, setCookingMethod] = useState(props.coffe_filters.cookingMethod);
+  const [degreeOfRoasting, setDegreeOfRoasting] = useState(props.coffe_filters.degreeOfRoasting);
+  const [processingType, setProcessingType] = useState(props.coffe_filters.processingType);
+  const [filtersApplied, setFiltersApplied] = useState(false);
+  const submitHandler = (event: SyntheticEvent) => {
+    event.preventDefault();
+    const coffe_filters = {
+      beansClass,
+      country,
+      cookingMethod,
+      degreeOfRoasting,
+      processingType
+    }
+    props.onSubmitHandler(coffe_filters)
+    setFiltersApplied(true);
+  };
+  const resetHandler = (event: SyntheticEvent) => {
+    event.preventDefault();
+    /*setBeansClass('');
+    setCookingMethod('');
+    setCountry('');
+    setDegreeOfRoasting('');
+    setProcessingType('');*/
+    const coffe_filters = {
+      beansClass: '',
+      country: '',
+      cookingMethod: '',
+      degreeOfRoasting: '',
+      processingType: ''
+    }
+    props.onSubmitHandler(coffe_filters)
+    setFiltersApplied(false);
+  }
   return (
  
         <StyledFormContainer>
@@ -91,7 +108,10 @@ const Filters = (props: {onSubmitHandler: (value: FiltersInterface) => void, cof
                           <option value="mixed">Mixed</option>
                    </Form.Select>
                </Form.Group>
-                <Button variant="primary" type='submit' className='my-3'>Apply Filters</Button>
+            { !filtersApplied ? 
+               <StyledFiltersButton variant="primary" type='submit' className='my-3'>Apply Filters</StyledFiltersButton> 
+              :<StyledFiltersButton variant="light" type='button' onClick={resetHandler} className='my-3'>Reset Filters</StyledFiltersButton>
+        }
            </Form>
         </StyledFormContainer>
   );

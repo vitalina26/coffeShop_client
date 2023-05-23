@@ -7,8 +7,6 @@ import { UserUpdateDto } from '../../dto/UserUpdateDto';
 import userService from '../../service/api.services/user.service';
 import api from '../../service/api';
 
-
-
 interface AsyncState {
   isLoading: boolean;
   isSuccess: boolean;
@@ -67,7 +65,7 @@ export const checkAuthenticated = createAsyncThunk(
       const token: string = !!storedToken ? storedToken : '';
       api.defaults.headers.Authorization = `Bearer ${token}`;
       return await userService.getCurrentUser();
-    }catch (error) {
+    } catch (error) {
       authService.logout();
       return thunkAPI.rejectWithValue('Unable to get');
     }

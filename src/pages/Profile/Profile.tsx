@@ -55,31 +55,40 @@ const Profile = () => {
                    <Form.Group controlId='firstName' className='my-3'>
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
-                        type='firstName'
-                        placeholder='Enter your first name'
-                        value={firstname}
-                        onChange={(e) => setFirstName(e.target.value)}
+                      required
+                      type='firstName'
+                      placeholder='Enter your first name'
+                      value={firstname}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please write valid first name.
+                    </Form.Control.Feedback>
                      </Form.Group>
       
                     <Form.Group controlId='lastName' className='my-3'>
                       <Form.Label>Last Name</Form.Label>
                       <Form.Control
+                        required
                         type='lastName'
                         placeholder='Enter your last name'
                         value={secondname}
                         onChange={(e) => setSecondName(e.target.value)}
-                       />
+                      />
+                      <Form.Control.Feedback type="invalid">
+                         Please write valid last name.
+                      </Form.Control.Feedback>
                       </Form.Group>
       
                     <Form.Group controlId='email' className='my-3'>
                       <Form.Label>Email address</Form.Label>
                       <Form.Control
-                          minLength = {5}
-                          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                         type='email'
-                         placeholder='Enter your email address'
-                         value={email}
+                        required
+                        minLength = {5}
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        type='email'
+                        placeholder='Enter your email address'
+                        value={email}
                          onChange={(e) => setEmail(e.target.value)} 
                       />
                       <Form.Control.Feedback type="invalid">
@@ -89,6 +98,7 @@ const Profile = () => {
                     <Form.Group controlId='phonenumber' className='my-3'>
                       <Form.Label>Phonenumber</Form.Label>
                       <Form.Control
+                          required
                           pattern='^[0-9]{10}$'                  
                           type='phonenumber'
                           placeholder='Enter your phonenumber'

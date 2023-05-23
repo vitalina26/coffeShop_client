@@ -10,6 +10,7 @@ import FormContainer from '../../components/CS-form-container/CS-form-container'
 import {  useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { register, reset } from '../../store/slices/auth-slice';
+import WarningModal from '../../components/CS-warning-modal/CS-warning-modal';
 
 const Register: FC = () => {
   const [firstname, setFirstName] = useState('')
@@ -19,7 +20,7 @@ const Register: FC = () => {
   const [phonenumber, setPhonenumber] = useState('')
   const [role, setRole] = useState('user')
   const [validated, setValidated] = useState(false);
-
+  const [userExist, setUserExist] = useState(false);
   const clearForm = () => {
     setFirstName('');
     setEmail('');
@@ -30,8 +31,7 @@ const Register: FC = () => {
   }
 
   const dispatch = useAppDispatch();
-
-  const {  isSuccess } = useAppSelector((state) => state.auth);
+  const {  isSuccess,user } = useAppSelector((state) => state.auth);
 
   const navigate = useNavigate();
   
@@ -49,12 +49,16 @@ const Register: FC = () => {
     if (form.checkValidity() === false) {
       e.stopPropagation();
       setValidated(false);
+    } else {
+      const userDto = { email, password, role, phonenumber, firstname, secondname }
+      dispatch(register(userDto)).then((value) => {
+        if (!user) {
+          setUserExist(true);
+        }
+        })
     }
-
-      const user = { email, password, role, phonenumber, firstname, secondname }
-      dispatch(register(user))
+   
     setValidated(true);
-    
   }
   return (
     <FormContainer>
@@ -62,8 +66,7 @@ const Register: FC = () => {
         <Form noValidate validated={validated} onSubmit={submitHandler}>
              <Form.Group controlId='firstName' className='my-3'>
               <Form.Label>First Name</Form.Label>
-          <Form.Control
-                  
+                <Form.Control
                   required
                   type='firstName'
                   placeholder='Enter your first name'
@@ -151,7 +154,8 @@ const Register: FC = () => {
               <Button variant="light" type='submit' className='my-3'>
                 Sign Up
               </Button>
-         </Form>
+        </Form>
+      {userExist && <WarningModal show={userExist} onHide={()=>setUserExist(false)} />}
     </FormContainer>
   )
 }

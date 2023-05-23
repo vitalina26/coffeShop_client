@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
 export const FilterContainer = styled.div`
 color: white;
@@ -26,4 +27,8 @@ border-radius: 5px;
 margin-top: 7px;
 background-color: #302f2f;
 padding:1px 10px;
+`
+export const StyledFiltersButton = styled(Button)`
+margin: 0px;
+
 `

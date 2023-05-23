@@ -5,7 +5,7 @@ import { Button, Container} from "react-bootstrap";
 import CoffeItem from "../../components/CS-coffe/CS-coffe";
 import { getAllCoffes } from "../../store/slices/coffe-items-slice";
 import SearchByName from "../../components/CS-search-by-name/CS-search-by-name";
-import Filters, { FiltersInterface } from "../../components/CS-filter/CS-filter";
+import Filters, { FiltersInterface } from "../../components/CS-filter/CS-filters";
 import SortByPrice from "../../components/CS-sorting/CS-sortByPrice";
 import CoffeItemsPagination from "../../components/CS-pagination/CS-Pagination";
 import { resetCoffe } from "../../store/slices/coffe-slice";

@@ -16,11 +16,11 @@ const Cart = () => {
     dispatch((getItems()))
   }, [])
 
-  const createOrderHandler = (e: SyntheticEvent) => {
+  const  createOrderHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(createOrder({ items }));
+    await dispatch(createOrder({ items }));
     navigate('/orderhistory')
-    window.location.reload();
+    //window.location.reload();
   }
   const cancelOrderHandler = (e: SyntheticEvent) => {
     e.preventDefault();

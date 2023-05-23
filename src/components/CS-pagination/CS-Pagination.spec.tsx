@@ -14,6 +14,8 @@ describe("Pagination component", () => {
     const paginationItems  = screen.getAllByTestId("pagination-item");
     expect(paginationItems.length).toEqual(1);
   });
+  
+  
   /*test("disabled prev button if current page = 1", () => {
     render(<CoffeItemsPagination
       nPages={3}

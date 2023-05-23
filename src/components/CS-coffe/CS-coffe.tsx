@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import React, { SyntheticEvent}  from "react"
@@ -6,8 +5,6 @@ import MyVerticallyCenteredModal from '../CS-modal/CS-modal';
 import { deleteCoffe, getCoffe } from '../../store/slices/coffe-slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import {  useNavigate } from "react-router-dom";
-import Nav from 'react-bootstrap/NavLink';
-import styled from 'styled-components';
 import { Coffe } from '../../models/Coffe';
 import { addToCart } from '../../store/slices/cart-slice/cart-slice';
 import ToastContainer from 'react-bootstrap/ToastContainer';
@@ -22,7 +19,7 @@ const CoffeItem = (props: { coffe: Coffe, role: string }) => {
   const deleteHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(deleteCoffe(props.coffe.id))
-  
+    window.location.reload();
   }
   const editHandler = async (e: SyntheticEvent) => {
     e.preventDefault();

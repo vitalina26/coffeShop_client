@@ -85,7 +85,7 @@ export const createOrder= createAsyncThunk(
           },
       getItems: (state) => {
         const storedCart: string | null = localStorage.getItem('cart');
-            // eslint-disable-next-line no-extra-boolean-cast
+         // eslint-disable-next-line no-extra-boolean-cast
         const cart: string = !!storedCart ? storedCart : '';
         const storedCounter: string | null = localStorage.getItem('counter');
         // eslint-disable-next-line no-extra-boolean-cast
